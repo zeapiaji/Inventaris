@@ -1,0 +1,27 @@
+.inventaris{
+    font-family: 'Poppins';
+    font-size: 32px;
+    line-height: 42px;
+}
+
+.smk{
+    color: #fff000;
+    font-family: 'Inter';
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.searchbar{
+    width: 100px;
+    float: left;
+}
+
+.stretch{
+    align-items: stretch;
+}
+
+.card-hover{
+    background-color: #4CAF50;
+    color: dark;
+}
+
