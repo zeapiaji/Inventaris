@@ -21,15 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\GudangController::class, 'dasbor'])->name('dasbor');
 
 /*
-|-------------------------------------------------------------------------
-| Liveware
-|--------------------------------------------------------------------------
-*/
-Route::get('/index', \App\Http\Livewire\Post\Index::class)->name('post.index');
-Route::get('/create', \App\Http\Livewire\Post\Create::class)->name('post.create');
-Route::get('/edit/{id}', \App\Http\Livewire\Post\Edit::class)->name('post.edit');
-
-/*
 |--------------------------------------------------------------------------
 | Parrent Data
 |--------------------------------------------------------------------------
@@ -42,13 +33,13 @@ Route::post('/tambah-kelas/unggah', [\App\Http\Controllers\DBrequest::class, 'ta
 | gudang
 |--------------------------------------------------------------------------
 */
-
 Route::post('/unggah',[\App\Http\Controllers\DBrequest::class, 'unggah'])->name('unggah_aset');
 Route::get('/gudang', [\App\Http\Controllers\GudangController::class, 'gudang'])->name('gudang');
-Route::post('/perbarui-aset-gudang/{id}', [\App\Http\Controllers\DBrequest::class, 'perbarui'])->name('perbarui.aset');
-Route::get('/aset/gudang/registrasi', [\App\Http\Controllers\GudangController::class, 'registrasi_aset'])->name('registrasi.aset');
-Route::get('/aset/gudang/hapus-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'hapus_aset_gudang'])->name('hapus.aset');
-Route::get('/aset/gudang/sunting-aset/{id}', [\App\Http\Controllers\GudangController::class, 'sunting_aset_gudang'])->name('sunting.aset.gudang');
+Route::get('/data', [\App\Http\Controllers\GudangController::class, 'data'])->name('data');
+Route::post('/perbarui/{id}', [\App\Http\Controllers\DBrequest::class, 'perbarui'])->name('perbarui.aset');
+Route::get('/gudang/registrasi', [\App\Http\Controllers\GudangController::class, 'registrasi_aset'])->name('registrasi.aset');
+Route::get('/gudang/hapus-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'hapus_aset_gudang'])->name('hapus.aset');
+Route::get('/gudang/sunting-aset/{id}', [\App\Http\Controllers\GudangController::class, 'sunting_aset_gudang'])->name('sunting.aset.gudang');
 
 /*
 |--------------------------------------------------------------------------

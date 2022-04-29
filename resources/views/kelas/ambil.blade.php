@@ -1,4 +1,4 @@
-@extends('layouts.app-core')
+@extends('layouts.app')
 @include('footer')
 
 @section('content')
@@ -78,7 +78,7 @@
                                 @enderror
                             </div>
                         </fieldset>
-                        
+
                         <button type="submit" class="btn btn-primary">Kirim</button>
                     </form>
                 </div>

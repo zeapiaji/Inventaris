@@ -27,26 +27,7 @@
                         </tr>
                     </thead>
                     <tbody id="aset">
-                        {{-- @foreach ($data as $item)
-                            <tr>
-                                <td>{{$no++}}</td>
-                                <td class="d-none d-xl-table-cell">{{$item -> barang -> nama}}</td>
-                                <td class="d-none d-xl-table-cell">{{$item -> total}}</td>
-                                <td>
-                                    <span class="badge {{$item->status->id === 1 ? 'bg-info' : ''}}
-                                                       {{$item->status->id === 2 ? 'bg-success' : ''}}
-                                                       {{$item->status->id === 3 ? 'bg-warning' : ''}}
-                                                       {{$item->status->id === 4 ? 'bg-danger' : ''}}">
-                                                       {{$item->status->nama}}
-                                    </span>
-                                </td>
-                                <td class="d-none d-md-table-cell">{{$item -> barang -> kode}}</td>
-                                <td class="d-none d-md-table-cell">
-                                    <a href="/gudang/sunting-aset/{{$item -> id}}" class="btn btn-sm btn-info">Edit</a>
-                                    <a href="/gudang/hapus-aset/{{$item -> id}}" class="btn btn-sm btn-danger">Hapus</a>
-                                </td>
-                            </tr>
-                        @endforeach --}}
+
                     </tbody>
                 </table>
             </div>
@@ -68,7 +49,7 @@
             }
         });
 
-        showMember();
+        showData();
 
         $('#addForm').on('submit', function(e){
             e.preventDefault();
@@ -82,7 +63,7 @@
                 success: function(){
                     $('#addnew').modal('hide');
                     $('#addForm')[0].reset();
-                    showMember();
+                    showData();
                 }
             });
         });
@@ -90,20 +71,24 @@
         $(document).on('click', '.edit', function(event){
             event.preventDefault();
             var id = $(this).data('id');
-            var firstname = $(this).data('first');
-            var lastname = $(this).data('last');
+            var barang = $(this).data('barang');
+            var total = $(this).data('total');
+            var kode = $(this).data('kode');
+            var status = $(this).data('status');
             $('#editmodal').modal('show');
-            $('#firstname').val(firstname);
-            $('#lastname').val(lastname);
+            $('#barang').val(barang);
+            $('#total').val(total);
+            $('#kode').val(kode);
+            $('#status').val(status);
             $('#memid').val(id);
         });
 
-        $(document).on('click', '.delete', function(event){
-            event.preventDefault();
-            var id = $(this).data('id');
-            $('#deletemodal').modal('show');
-            $('#deletemember').val(id);
-        });
+        // $(document).on('click', '.delete', function(event){
+        //     event.preventDefault();
+        //     var id = $(this).data('id');
+        //     $('#deletemodal').modal('show');
+        //     $('#deletemember').val(id);
+        // });
 
         $('#editForm').on('submit', function(e){
             e.preventDefault();
@@ -111,23 +96,23 @@
             var url = $(this).attr('action');
             $.post(url,form,function(data){
                 $('#editmodal').modal('hide');
-                showMember();
+                showData();
             })
         });
 
-        $('#deletemember').click(function(){
-            var id = $(this).val();
-            $.post("{{ URL::to('delete') }}",{id:id}, function(){
-                $('#deletemodal').modal('hide');
-                showMember();
-            })
-        });
+        // $('#deletemember').click(function(){
+        //     var id = $(this).val();
+        //     $.post("{{ URL::to('delete') }}",{id:id}, function(){
+        //         $('#deletemodal').modal('hide');
+        //         showMember();
+        //     })
+        // });
 
     });
 
-    function showMember(){
-        $.get("{{ URL::to('gudang') }}", function(data){
-            $('#memberBody').empty().html(data);
+    function showData(){
+        $.get("{{ URL::to('data') }}", function(data){
+            $('#aset').empty().html(data);
         })
     }
 

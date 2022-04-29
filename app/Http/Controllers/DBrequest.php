@@ -76,23 +76,26 @@ class DBrequest extends Controller
         $request -> validated();
 
         try {
-            Barang::create([
+            if ($request->ajax()){
+
+            $barang = Barang::create([
                 'nama' => $request -> nama_brg,
                 'kode' => $request -> kode_brg,
             ]);
 
-            $barang = Barang::select('id')
+            $dataBarang = Barang::select('id')
                             ->orderByRaw('id DESC')
                             ->first();
 
-            Gudang::create([
-                'barang_id' => $barang ->id,
+            $gudang = Gudang::create([
+                'barang_id' => $dataBarang ->id,
                 'total'     => $request -> jumlah,
                 'status_id' => $request -> status,
             ]);
 
             Alert::toast('Aset berhasil ditambahkan!', 'success');
-            return redirect('/gudang');
+            return response()->json(['barang' => $barang, 'gudang' => $gudang]);
+            }
         } catch (\Throwable $th) {
             Alert::toast('Aset gagal ditambahkan!', 'error');
             return redirect('/gudang');

@@ -1,4 +1,4 @@
-@extends('layouts.app-core')
+@extends('layouts.app')
 @include('footer')
 
 @section('content')

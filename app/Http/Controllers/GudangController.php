@@ -28,17 +28,19 @@ class GudangController extends Controller
     }
 
 
-    public function gudang()
+    public function data()
     {
-        $data = Gudang::all();
+        $gudang = Gudang::all();
         $no = 1;
-
-        return view('gudang', compact(
-            'data',
-            'no'
-        ));
+        return view('gudang.data', compact('gudang', 'no'));
     }
 
+
+    public function gudang()
+    {
+        return view('gudang.index');
+    }
+    
 
     public function sunting_aset_gudang($id)
     {
