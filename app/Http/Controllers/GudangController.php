@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gudang;
+use Illuminate\Support\Facades\Request;
 
 class GudangController extends Controller
 {
@@ -16,23 +17,10 @@ class GudangController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
-        return view('home');
-    }
-
 
     public function dasbor()
     {
         return view('index');
-    }
-
-
-    public function data()
-    {
-        $gudang = Gudang::all();
-        $no = 1;
-        return view('gudang.data', compact('gudang', 'no'));
     }
 
 
@@ -42,25 +30,24 @@ class GudangController extends Controller
     }
 
 
-    public function sunting_aset_gudang($id)
+    public function data(Request $request)
     {
-        $data = Gudang::find($id);
+        $gudang = Gudang::all();
+        $no = 1;
 
-        return view('gudang.edit', ['data' => $data]);
+        return view('gudang.data', compact('gudang', 'no'));
     }
-
-
-    public function registrasi_aset()
-    {
-        return view('gudang.registrasi');
-    }
-
 
     public function sampah()
     {
+        return view('sampah.index');
+    }
+
+    public function data_sampah()
+    {
         $gudang = Gudang::onlyTrashed()->get();
         $no     = 1;
-        return view('gudang.sampah', compact(
+        return view('sampah.data', compact(
             'gudang',
             'no'
         ));

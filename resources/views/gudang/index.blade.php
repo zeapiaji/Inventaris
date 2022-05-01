@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @include('footer')
+@include('gudang.script')
 
 @section('content')
 
@@ -31,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody id="aset">
-
+                        {{-- Data --}}
                     </tbody>
                 </table>
             </div>
@@ -40,5 +41,5 @@
 </main>
 
 @yield('footer')
-
+@yield('script')
 @endsection

@@ -239,9 +239,9 @@ class DBrequest extends Controller
         try {
             if ($request->ajax()){
                 $id = $request -> id;
-                $gudang = Gudang::find($id) -> delete();
+                Gudang::find($id) -> delete();
 
-                return response($gudang);
+                return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
             }
         } catch (\Throwable $th) {
             Alert::toast('Aset gagal dihapus!', 'error');
@@ -258,74 +258,5 @@ class DBrequest extends Controller
         return response()->json(['status'=>true,'message'=>"Category deleted successfully."]);
     }
 
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Soft Delete
-    |--------------------------------------------------------------------------
-    */
-    public function pulihkan($id)
-    {
-        try {
-            Gudang::withTrashed()
-                    -> where('id', $id)
-                    -> restore();
-
-            Alert::toast('Aset berhasil dipulihkan!', 'success');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            Alert::toast('Aset gagal dipulihkan!', 'error');
-            return redirect()->back();
-        }
-
-    }
-
-
-    public function pulihkan_semua()
-    {
-        try {
-            Gudang::withTrashed()
-                ->restore();
-
-            Alert::toast('Semua data berhasil dipulihkan!', 'success');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            Alert::toast('Semua data gagal dipulihkan!', 'error');
-            return redirect()->back();
-        }
-    }
-
-
-    public function hapus($id)
-    {
-        try {
-            Gudang::withTrashed()
-                    ->where('id', $id)
-                    ->forceDelete();
-
-            Alert::toast('Aset berhasil dihapus!', 'success');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            Alert::toast('Aset gagal dihapus!', 'error');
-            return redirect()->back();
-        }
-    }
-
-
-    public function hapus_semua()
-    {
-        try {
-            Gudang::onlyTrashed()
-                    ->forceDelete();
-
-            Alert::toast('Semua aset berhasil dihapus!', 'success');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            Alert::toast('Semua aset gagal dihapus!', 'error');
-            return redirect()->back();
-        }
-    }
 
 }

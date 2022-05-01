@@ -178,24 +178,3 @@
         </div>
     </div>
 </div>
-
-<!-- Delete Modal -->
-<div class="modal" id="deletemodal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Hapus Aset</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h4 class="text-center">Anda yakin akan menghapus aset ini?</h4>
-                <p class="text-center text-muted">*aset ini akan dipindahkan ke halaman sampah</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" id="delete" class="btn btn-danger">Ya</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>

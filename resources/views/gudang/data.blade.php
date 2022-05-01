@@ -1,3 +1,4 @@
+
 @foreach ($gudang as $item)
 <tr>
     <td><input type="checkbox" class="checkbox" data-id="{{$item -> id}}"></td>
@@ -21,3 +22,4 @@
     </td>
 </tr>
 @endforeach
+

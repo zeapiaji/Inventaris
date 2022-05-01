@@ -33,9 +33,9 @@ Route::post('/tambah-kelas/unggah', [\App\Http\Controllers\DBrequest::class, 'ta
 | gudang
 |--------------------------------------------------------------------------
 */
+Route::get('/data', [\App\Http\Controllers\GudangController::class, 'data'])->name('data');
 Route::post('/unggah',[\App\Http\Controllers\DBrequest::class, 'unggah'])->name('unggah_aset');
 Route::get('/gudang', [\App\Http\Controllers\GudangController::class, 'gudang'])->name('gudang');
-Route::get('/data', [\App\Http\Controllers\GudangController::class, 'data'])->name('data');
 Route::post('/perbarui', [\App\Http\Controllers\DBrequest::class, 'perbarui'])->name('perbarui.aset');
 Route::post('/hapus', [\App\Http\Controllers\DBrequest::class, 'hapus_aset_gudang'])->name('hapus.aset');
 Route::delete('multiple-delete', [\App\Http\Controllers\DBrequest::class, 'multiple_delete'])->name('multiple.delete');
@@ -59,10 +59,15 @@ Route::post('/aset/kelas/detail/kembalikan/{id}/barang/{id_brg}', [\App\Http\Con
 | Soft Delete
 |--------------------------------------------------------------------------
 */
-Route::get('/gudang/sampah', [\App\Http\Controllers\GudangController::class, 'sampah'])->name('sampah');
-Route::get('/gudang/sampah/pulihkan/{id}',[\App\Http\Controllers\DBrequest::class, 'pulihkan'])->name('pulihkan');
-Route::get('/gudang/sampah/hapus-permanen/{id}', [\App\Http\Controllers\DBrequest::class, 'hapus'])->name('hapus');
-Route::get('/gudang/sampah/pulihkan-semua', [\App\Http\Controllers\DBrequest::class, 'pulihkan_semua'])->name('pulihkan.semua');
-Route::get('/gudang/sampah/hapus-permanen-semua', [\App\Http\Controllers\DBrequest::class, 'hapus_semua'])->name('hapus.semua');
 
+Route::get('/gudang/sampah', [\App\Http\Controllers\GudangController::class, 'sampah'])->name('sampah');
+Route::get('data-sampah', [\App\Http\Controllers\GudangController::class, 'data_sampah'])->name('data_sampah');
+
+Route::post('/pulihkan', [\App\Http\Controllers\SoftDelete::class, 'pulihkan'])->name('pulihkan');
+Route::post('/multi-recovery', [\App\Http\Controllers\SoftDelete::class, 'multi_recovery'])->name('multi.recovery');
+
+Route::post('/hapus-permanen', [\App\Http\Controllers\SoftDelete::class, 'hapus_permanen'])->name('hapus.permanen');
+Route::get('/gudang/sampah/hapus-permanen-semua', [\App\Http\Controllers\SoftDelete::class, 'hapus_semua'])->name('hapus.semua');
+
+Route::delete('sampah_hapus_multi', [\App\Http\Controllers\SoftDelete::class, 'sampah_hapus_multi'])->name('sampah.hapus.multi');
 Auth::routes();
