@@ -15,6 +15,7 @@ use App\Http\Requests\GudangStorePostRequest;
 use App\Http\Requests\KelasJumlahFormRequest;
 use App\Http\Requests\TambahKelasFormRequest;
 use App\Http\Requests\KelasKembalikanFormRequest;
+use Laravel\Ui\Presets\React;
 
 class DBrequest extends Controller
 {
@@ -71,14 +72,12 @@ class DBrequest extends Controller
     }
 
 
-    public function unggah(GudangStorePostRequest $request)
+    public function unggah(Request $request)
     {
-        $request -> validated();
-
         try {
             if ($request->ajax()){
 
-            $barang = Barang::create([
+            Barang::create([
                 'nama' => $request -> nama_brg,
                 'kode' => $request -> kode_brg,
             ]);
@@ -87,14 +86,14 @@ class DBrequest extends Controller
                             ->orderByRaw('id DESC')
                             ->first();
 
-            $gudang = Gudang::create([
+             Gudang::create([
                 'barang_id' => $dataBarang ->id,
                 'total'     => $request -> jumlah,
                 'status_id' => $request -> status,
             ]);
 
             Alert::toast('Aset berhasil ditambahkan!', 'success');
-            return response()->json(['barang' => $barang, 'gudang' => $gudang]);
+            return response()->json(['success' => 'Data berhasil diregistrasi!']);
             }
         } catch (\Throwable $th) {
             Alert::toast('Aset gagal ditambahkan!', 'error');
@@ -104,24 +103,39 @@ class DBrequest extends Controller
     }
 
 
-    public function perbarui(GudangStorePostRequest $request, $id)
+    public function perbarui(Request $request)
     {
-        $request -> validated();
+        $validator = Validator::make($request -> all(), [
+            'nama_brg' => 'required',
+            'kode_brg' => 'required',
+            'jumlah' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($validator-> fails()) {
+            return response()->json([
+                'error' => $validator -> errors()->all()
+            ]);
+        }
 
         try {
-            $barang = Barang::find($id);
-            $barang -> nama = $request -> nama_brg;
-            $barang -> kode = $request -> kode_brg;
+            if($request -> ajax()){
+                $id     = $request -> id;
 
-            $gudang = Gudang::find($id);
-            $gudang -> total = $request -> jumlah;
-            $gudang -> status_id = $request -> status;
+                $barang = Barang::find($id);
+                $barang -> nama = $request -> nama_brg;
+                $barang -> kode = $request -> kode_brg;
 
-            $gudang -> save();
-            $barang -> save();
+                $gudang = Gudang::find($id);
+                $gudang -> total = $request -> jumlah;
+                $gudang -> status_id = $request -> status;
 
-            Alert::toast('Aset berhasil diperbarui!', 'success');
-            return redirect('/gudang');
+                $gudang -> update();
+                $barang -> update();
+
+                Alert::toast('Aset berhasil diperbarui!', 'success');
+                return response()->json(['success' => 'Data berhasil diregistrasi!']);
+            }
         } catch (\Throwable $th) {
             Alert::toast('Aset gagal diperbarui!', 'error');
             return redirect()->back();
@@ -220,18 +234,15 @@ class DBrequest extends Controller
     }
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Soft Delete
-    |--------------------------------------------------------------------------
-    */
-    public function hapus_aset_gudang($id)
+    public function hapus_aset_gudang(Request $request)
     {
         try {
-            Gudang::find($id) -> delete();
+            if ($request->ajax()){
+                $id = $request -> id;
+                $gudang = Gudang::find($id) -> delete();
 
-            Alert::toast('Aset berhasil dihapus!', 'success');
-            return redirect()->back();
+                return response($gudang);
+            }
         } catch (\Throwable $th) {
             Alert::toast('Aset gagal dihapus!', 'error');
             return redirect()->back();
@@ -240,6 +251,21 @@ class DBrequest extends Controller
     }
 
 
+    public function multiple_delete(Request $request)
+    {
+        $id = $request->ids;
+        Gudang::whereIn('id', explode(",",$id))->delete();
+        return response()->json(['status'=>true,'message'=>"Category deleted successfully."]);
+    }
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Soft Delete
+    |--------------------------------------------------------------------------
+    */
     public function pulihkan($id)
     {
         try {

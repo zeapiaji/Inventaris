@@ -36,10 +36,9 @@ Route::post('/tambah-kelas/unggah', [\App\Http\Controllers\DBrequest::class, 'ta
 Route::post('/unggah',[\App\Http\Controllers\DBrequest::class, 'unggah'])->name('unggah_aset');
 Route::get('/gudang', [\App\Http\Controllers\GudangController::class, 'gudang'])->name('gudang');
 Route::get('/data', [\App\Http\Controllers\GudangController::class, 'data'])->name('data');
-Route::post('/perbarui/{id}', [\App\Http\Controllers\DBrequest::class, 'perbarui'])->name('perbarui.aset');
-Route::get('/gudang/registrasi', [\App\Http\Controllers\GudangController::class, 'registrasi_aset'])->name('registrasi.aset');
-Route::get('/gudang/hapus-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'hapus_aset_gudang'])->name('hapus.aset');
-Route::get('/gudang/sunting-aset/{id}', [\App\Http\Controllers\GudangController::class, 'sunting_aset_gudang'])->name('sunting.aset.gudang');
+Route::post('/perbarui', [\App\Http\Controllers\DBrequest::class, 'perbarui'])->name('perbarui.aset');
+Route::post('/hapus', [\App\Http\Controllers\DBrequest::class, 'hapus_aset_gudang'])->name('hapus.aset');
+Route::delete('multiple-delete', [\App\Http\Controllers\DBrequest::class, 'multiple_delete'])->name('multiple.delete');
 
 /*
 |--------------------------------------------------------------------------

@@ -31,7 +31,6 @@
     <link href="{{asset('css-temp/app.css')}}" rel="stylesheet">
     <link href="{{asset('css-temp/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.min.css">
-    @livewireStyles
 </head>
 <body>
     <div class="wrapper">
@@ -151,6 +150,7 @@
                                                 <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
                                                 <div class="text-muted small mt-1">2h ago</div>
                                             </div>
+
                                         </div>
                                     </a>
                                     <a href="#" class="list-group-item">
@@ -189,13 +189,14 @@
             </nav>
 
             @yield('content')
-
+            @include('modal')
         </div>
 
     </div>
 
-    @livewireScripts
 </body>
+@include('gudang.script')
+@yield('script')
 </html>
 {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">

@@ -40,7 +40,7 @@ class GudangController extends Controller
     {
         return view('gudang.index');
     }
-    
+
 
     public function sunting_aset_gudang($id)
     {

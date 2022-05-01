@@ -26,7 +26,7 @@
                             <th class="d-none d-md-table-cell">Opsi</th>
                         </tr>
                     </thead>
-                    <tbody id="aset">
+                    <tbody>
                         <div class="card">
                             <div class="card-header">
                             </div>
