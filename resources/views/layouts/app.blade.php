@@ -13,14 +13,14 @@
     <!-- Scripts -->
     <script src="{{ asset('js-temp/clock.js') }}" defer></script>
     <script src="{{ asset('js-temp/searchbar.js') }}" defer></script>
+    <script src="{{ asset('js-temp/searchbar_gudang.js') }}" defer></script>
     <script src="{{ asset('js-temp/chart.js') }}" defer></script>
-    <script src="{{ asset('js-temp/minusIgnore.js') }}" defer></script>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="{{ asset('js-temp/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js"></script>
-
+    <script>$(document).ready(minusIgnore() {this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null});</script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -194,13 +194,13 @@
             </nav>
 
             @yield('content')
-            @include('modal')
+            {{-- @include('modal') --}}
         </div>
 
     </div>
 
 </body>
-@include('gudang.script')
+{{-- @include('gudang.script') --}}
 {{-- @yield('script') --}}
 
 </html>

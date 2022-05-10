@@ -39,6 +39,19 @@ class KelasController extends Controller
     }
 
 
+    // public function data_kelas($id)
+    // {
+    //     dump($id);
+    //     $data = Akomodasi::where('kelas_id', $id)->get();
+    //     $no   = 1;
+
+    //     return view('kelas.data', compact(
+    //         'data',
+    //         'no'
+    //     ));
+    // }
+
+
     public function detail($id)
     {
         $data      = Akomodasi::where('kelas_id', $id)->get();
@@ -50,7 +63,7 @@ class KelasController extends Controller
         $gudang    = Gudang::all();
         $no = 1;
 
-        return view('kelas.detail', compact(
+        return view('kelas.index', compact(
             'identitas',
             'data',
             'gudang',
@@ -108,7 +121,7 @@ class KelasController extends Controller
     public function ambil($id)
     {
         $data   = Kelas::find($id);
-        $gudang = Gudang::all();
+        $gudang = Gudang::where('total', '>', 0)->get();
         return view('kelas.ambil', compact(
             'data',
             'gudang',

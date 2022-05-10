@@ -33,8 +33,8 @@ Route::post('/tambah-kelas/unggah', [\App\Http\Controllers\DBrequest::class, 'ta
 | gudang
 |--------------------------------------------------------------------------
 */
+Route::post('/unggah',[\App\Http\Controllers\DBrequest::class, 'unggah'])->name('unggah');
 Route::get('/data', [\App\Http\Controllers\GudangController::class, 'data'])->name('data');
-Route::post('/unggah',[\App\Http\Controllers\DBrequest::class, 'unggah'])->name('unggah_aset');
 Route::get('/gudang', [\App\Http\Controllers\GudangController::class, 'gudang'])->name('gudang');
 Route::post('/perbarui', [\App\Http\Controllers\DBrequest::class, 'perbarui'])->name('perbarui.aset');
 Route::post('/hapus', [\App\Http\Controllers\DBrequest::class, 'hapus_aset_gudang'])->name('hapus.aset');
@@ -61,13 +61,17 @@ Route::post('/aset/kelas/detail/kembalikan/{id}/barang/{id_brg}', [\App\Http\Con
 */
 
 Route::get('/gudang/sampah', [\App\Http\Controllers\GudangController::class, 'sampah'])->name('sampah');
-Route::get('data-sampah', [\App\Http\Controllers\GudangController::class, 'data_sampah'])->name('data_sampah');
+Route::get('data-sampah', [\App\Http\Controllers\GudangController::class, 'data_sampah'])->name('data.sampah');
 
 Route::post('/pulihkan', [\App\Http\Controllers\SoftDelete::class, 'pulihkan'])->name('pulihkan');
 Route::post('/multi-recovery', [\App\Http\Controllers\SoftDelete::class, 'multi_recovery'])->name('multi.recovery');
+Route::post('/pulihkan-semua', [\App\Http\Controllers\SoftDelete::class, 'pulihkan_semua'])->name('pulihkan.semua');
 
+Route::post('/hapus', [\App\Http\Controllers\SoftDelete::class, 'hapus'])->name('hapus');
 Route::post('/hapus-permanen', [\App\Http\Controllers\SoftDelete::class, 'hapus_permanen'])->name('hapus.permanen');
-Route::get('/gudang/sampah/hapus-permanen-semua', [\App\Http\Controllers\SoftDelete::class, 'hapus_semua'])->name('hapus.semua');
+Route::post('/hapus-semua', [\App\Http\Controllers\SoftDelete::class, 'hapus_semua'])->name('hapus.semua');
 
 Route::delete('sampah_hapus_multi', [\App\Http\Controllers\SoftDelete::class, 'sampah_hapus_multi'])->name('sampah.hapus.multi');
+
+// Auth
 Auth::routes();

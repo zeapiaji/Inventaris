@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Gudang;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,10 +18,10 @@ class SoftDelete extends Controller
                         -> where('id', $id)
                         -> restore();
 
-                return response()->json(['status' => true, 'message'=>'Aset berhasil dipulihkan']);
+                return response()->json(['status' => true, 'message'=>'Aset berhasil dipulihkan!']);
             }
         } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message'=>'Aset gagal dipulihkan']);
+            return response()->json(['status' => false, 'message'=>'Aset gagal dipulihkan!']);
         }
 
     }
@@ -35,10 +36,41 @@ class SoftDelete extends Controller
                         ->whereIn('id', explode(",",$id))
                         ->restore();
 
-                return response()->json(['status' => true, 'message'=>'Aset berhasil dipulihkan']);
+                return response()->json(['status' => true, 'message'=>'Aset berhasil dipulihkan!']);
             }
         } catch (\Throwable $th) {
-            return response()->json(['status' => false, 'message'=>'Aset gagal dipulihkan']);
+            return response()->json(['status' => false, 'message'=>'Aset gagal dipulihkan!']);
+        }
+    }
+
+
+    public function pulihkan_semua()
+    {
+        try {
+            Gudang::onlyTrashed()
+                    ->restore();
+
+            Alert::toast('Semua aset berhasil dipulihkan!', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Alert::toast('Semua aset gagal dipulihkan!', 'error');
+            return redirect()->back();
+        }
+    }
+
+
+    public function hapus(Request $request)
+    {
+        try {
+            if ($request->ajax()){
+                $id = $request -> id;
+                Gudang::withTrashed()
+                        -> where('id', $id)
+                        -> delete();
+                return response()->json(['status' => true, 'message'=>'Aset berhasil dihapus!']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message'=>'Aset gagal dihapus!']);
         }
     }
 
@@ -76,11 +108,15 @@ class SoftDelete extends Controller
 
     public function sampah_hapus_multi(Request $request)
     {
-        $id = $request->ids;
-        Gudang::onlyTrashed()
-                ->whereIn('id', explode(",",$id))
-                ->forceDelete();
+        try {
+            $id = $request->ids;
+            Gudang::onlyTrashed()
+                    ->whereIn('id', explode(",",$id))
+                    ->forceDelete();
 
-        return response()->json(['status'=>true,'message'=>"Aset berhasil dihapus!"]);
+            return response()->json(['status'=>true,'message'=>"Aset berhasil dihapus!"]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => true, 'message'=>'Aset gagal dihapus!']);
+        }
     }
 }

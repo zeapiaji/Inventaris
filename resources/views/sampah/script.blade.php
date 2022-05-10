@@ -65,6 +65,46 @@
         });
 
 
+        $(document).on('click', '.pulihkan-semua', function (event) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "*Semua aset akan dipulihkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post("{{ URL::to('pulihkan-semua') }}", {}, function () {
+                        toastPulihkan();
+                        showData();
+                    })
+                }
+            })
+        });
+
+
+        $(document).on('click', '.hapus-semua', function (event) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "*Semua aset akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post("{{ URL::to('hapus-semua') }}", {}, function () {
+                        toastDelete();
+                        showData();
+                    })
+                }
+            })
+        });
+
+
         $('.multi-recovery').on('click', function (e) {
             var idsArr = [];
             $(".checkbox:checked").each(function () {
@@ -74,7 +114,7 @@
                 toastNull()
             } else {
                 Swal.fire({
-                    title: 'Apkah anda yakin?',
+                    title: 'Apakah anda yakin?',
                     text: "*aset yang dipilih akan dipulihkan!",
                     icon: 'warning',
                     showCancelButton: true,
@@ -123,8 +163,8 @@
                 toastNull()
             } else {
                 Swal.fire({
-                    title: 'Apkah anda yakin?',
-                    text: "*aset ini akan dipindahkan ke sampah!",
+                    title: 'Apakah anda yakin?',
+                    text: "*aset yang dipilih akan dihapus secara permanen!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yakin',

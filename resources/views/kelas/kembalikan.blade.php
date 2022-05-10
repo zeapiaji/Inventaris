@@ -36,8 +36,8 @@
                             <div class="me-auto p-2 bd-highlight">
                                 <h5 class="card-title mb-0">Stok Barang</h5>
                             </div>
-                            <div class="p-2 bd-highlight"><input type="text" id="searchbar"
-                                    class="p-2 bd-highlight form-control align-baseline" placeholder="cari disini..">
+                            <div class="p-2 bd-highlight"><input type="text" id="searchbar-gudang"
+                                    class="p-2 bd-highlight form-control align-baseline" placeholder="barang, total, status...">
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                     <th class=" d-xl-table-cell">Stok</th>
                                 </tr>
                             </thead>
-                            <tbody id="aset">
+                            <tbody id="aset-gudang">
                                 @foreach ($gudang as $item)
                                 <tr>
                                     <td class="d-xl-table-cell">{{$item -> barang -> nama}}</td>
@@ -59,11 +59,6 @@
 
                             </tbody>
                         </table>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="my-3">
-
-                        </div>
                     </div>
                 </div>
             </div>

@@ -67,8 +67,8 @@
 
         $(document).on('click', '.delete', function (event) {
             Swal.fire({
-                title: 'Apkah anda yakin?',
-                text: "*aset ini akan dipindahkan ke sampah!",
+                title: 'Apakah anda yakin?',
+                text: "*aset yang dipilih akan dipindahkan ke sampah!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Yakin',
@@ -119,8 +119,8 @@
                 toastNull()
             } else {
                 Swal.fire({
-                    title: 'Apkah anda yakin?',
-                    text: "*aset ini akan dipindahkan ke sampah!",
+                    title: 'Apakah anda yakin?',
+                    text: "*aset yang dipilih akan dipindahkan ke sampah!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yakin',

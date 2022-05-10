@@ -7,15 +7,11 @@ use App\Models\Barang;
 use App\Models\Gudang;
 use App\Models\Akomodasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\KelasFormRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\GudangStorePostRequest;
 use App\Http\Requests\KelasJumlahFormRequest;
 use App\Http\Requests\TambahKelasFormRequest;
-use App\Http\Requests\KelasKembalikanFormRequest;
-use Laravel\Ui\Presets\React;
 
 class DBrequest extends Controller
 {
@@ -149,9 +145,9 @@ class DBrequest extends Controller
     | Kelas
     |--------------------------------------------------------------------------
     */
-    public function akomodasi_aset($id, $id_brg, KelasJumlahFormRequest $request)
+    public function akomodasi_aset(KelasJumlahFormRequest $request, $id, $id_brg)
     {
-        $request ->validated();
+        $request -> validated();
 
         try {
             $gudang          = Gudang::where('id', $id_brg)->first();
@@ -165,39 +161,72 @@ class DBrequest extends Controller
             $gudang -> save();
             $akomodasi -> save();
 
+            $kelas = Akomodasi::where('id', $id)->first();
+            $kelas = $kelas -> kelas -> id;
+
             Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil ditambahkan!', 'success');
-            return redirect()->back();
+            return redirect('/kelas/'.$kelas);
 
         } catch (\Throwable $th) {
-            Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' gagal ditambahkan!', 'success');
-            return redirect()->back();
+            $kelas = Akomodasi::where('id', $id)->first();
+            $kelas = $kelas -> kelas -> id;
+
+            Alert::toast('Ada yang salah, silahkan coba lagi nanti!', 'error');
+            return redirect('/kelas/'.$kelas);
         }
 
     }
 
 
-    public function kembalikan_aset($id, $id_brg, KelasJumlahFormRequest $request)
+    public function kembalikan_aset(KelasJumlahFormRequest $request, $id, $id_brg)
     {
         $request ->validated();
 
         try {
-            $gudang          = Gudang::where('id', $id_brg)->first();
-            $prosesGudang    = $gudang -> total + $request->jumlah;
-            $gudang -> total = $prosesGudang;
+                $gudang          = Gudang::where('barang_id', $id_brg)->first();
+                $prosesGudang    = $gudang -> total + $request->jumlah;
+                $gudang -> total = $prosesGudang;
 
-            $akomodasi       = Akomodasi::where('id', $id)->first();
-            $prosesAkomodasi = $akomodasi -> total  - $request->jumlah;
-            $akomodasi -> total = $prosesAkomodasi;
+                $akomodasi       = Akomodasi::where('id', $id)->first();
+                $prosesAkomodasi = $akomodasi -> total  - $request->jumlah;
+                $akomodasi -> total = $prosesAkomodasi;
+                $gudang -> save();
+                $akomodasi -> save();
 
-            $gudang -> save();
-            $akomodasi -> save();
+                $kelas = Akomodasi::where('id', $id)->first();
+                $kelas = $kelas -> kelas -> id;
 
-            Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
-            return redirect()-> back();
+                Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
+                return redirect('/kelas/'.$kelas);
+            // } catch (\Throwable $th) {
+            //     Gudang::create([
+            //         'total' => $request -> jumlah,
+            //         'barang_id' => $id_brg,
+            //         'status_id' => 1,
+            //     ]);
+
+            //     $gudang          = Gudang::where('barang_id', $id_brg)->first();
+            //     $prosesGudang    = $gudang -> total + $request->jumlah;
+            //     $gudang -> total = $prosesGudang;
+
+            //     $akomodasi       = Akomodasi::where('id', $id)->first();
+            //     $prosesAkomodasi = $akomodasi -> total  - $request->jumlah;
+            //     $akomodasi -> total = $prosesAkomodasi;
+            //     $gudang -> save();
+            //     $akomodasi -> save();
+
+            //     $kelas = Akomodasi::where('id', $id)->first();
+            //     $kelas = $kelas -> kelas -> id;
+
+            //     Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
+            //     return redirect('/kelas/'.$kelas);
+            // }
         } catch (\Throwable $th) {
+            $kelas = Akomodasi::where('id', $id)->first();
+            $kelas = $kelas -> kelas -> id;
 
-            Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' gagal dikembalikan!', 'error');
-            return redirect()-> back();
+            Alert::toast('Ada yang salah, silahkan coba lagi nanti!', 'error');
+            return redirect('/kelas/'.$kelas);
         }
 
     }
@@ -206,29 +235,34 @@ class DBrequest extends Controller
     public function ambil_aset(KelasFormRequest $request, $id)
     {
         $request -> validated();
+        $gudang = Gudang::where('barang_id', $request -> nama_brg)
+                    ->where('status_id', $request -> status)
+                    ->first();
+        // dd($gudang);
+        $prosesGudang    = $gudang -> total - $request -> jumlah;
+        $gudang -> total = $prosesGudang;
+        $gudang -> save();
 
+        Akomodasi::create([
+            'total'     => $request -> jumlah,
+            'barang_id' => $request -> nama_brg,
+            'kelas_id'  => $id,
+            'status_id' => $request -> status,
+        ]);
+
+        $kelas = Akomodasi::where('id', $id)->first();
+        $kelas = $kelas -> kelas -> id;
+
+        Alert::toast($gudang -> barang -> nama . ' berhasil diambil!', 'success');
+        return redirect('/kelas/'.$kelas);
         try {
-            $gudang = Gudang::where('barang_id', $request -> nama_brg)
-                        ->where('status_id', $request -> status)
-                        ->first();
-            $prosesGudang         = $gudang -> total  - $request -> jumlah;
-            $gudang -> total = $prosesGudang;
-            $gudang -> save();
-
-
-            Akomodasi::create([
-                'total'     => $request -> jumlah,
-                'barang_id' => $request -> nama_brg,
-                'kelas_id'  => $id,
-                'status_id' => $request -> status,
-            ]);
-
-            Alert::toast($request -> nama_brg . 'berhasil diambil!', 'success');
-            return redirect()->back();
 
         } catch (\Throwable $th) {
-            Alert::toast($request -> nama_brg . 'gagal diambil!', 'error');
-            return redirect()->back();
+            $kelas = Akomodasi::where('id', $id)->first();
+            $kelas = $kelas -> kelas -> id;
+
+            Alert::toast('Ada yang salah, silahkan coba lagi nanti!', 'error');
+            return redirect('/kelas/'.$kelas);
         }
 
     }

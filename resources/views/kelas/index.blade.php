@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @include('footer')
-
 @section('content')
 
 <main class="content">
@@ -13,14 +12,11 @@
                 <div class="card flex-fill p-2">
                     <div class="card-header">
                         <div class="d-flex stretch bd-highlight">
-                            <div class="me-auto p-2 bd-highlight">
-                                <h5 class="card-title mb-0">Kelas</h5>
+                            <div class="me-auto p-2 bd-highlight"><input type="text" id="searchbar"
+                                    class="p-2 bd-highlight form-control align-baseline" placeholder="barang, total, status...">
                             </div>
                             <div class="p-2 bd-highlight"><a href="ambil/{{$identitas -> id}}"
                                     class="btn rounded-sm btn-lg btn-info">Ambil dari gudang</a></div>
-                            <div class="p-2 bd-highlight"><input type="text" id="searchbar"
-                                    class="p-2 bd-highlight form-control align-baseline" placeholder="cari disini..">
-                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -51,12 +47,12 @@
                                     <td class=" d-xl-table-cell">
                                         <a href="/aset/kelas/detail/akomodasi-aset/{{$item -> id}}/barang/{{$item -> barang -> id}}"
                                             class="btn btn-sm btn-success">Tambah</a>
-                                        <a href="/aset/kelas/detail/kembalikan-aset/{{$item ->id}}/barang/{{$item -> barang -> id}}"
-                                            class="btn btn-sm btn-warning">Kembalikan</a>
+                                        <a href="/aset/kelas/detail/kembalikan-aset/{{$item -> id}}/barang/{{$item -> barang -> id}}"
+                                            data-id="{{$item -> barang -> id}}"
+                                            class="btn btn-sm btn-warning kembalikan">Kembalikan</a>
                                     </td>
                                 </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -69,8 +65,8 @@
                             <div class="me-auto p-2 bd-highlight">
                                 <h5 class="card-title mb-0">Stok Barang</h5>
                             </div>
-                            <div class="p-2 bd-highlight"><input type="text" id="searchbar"
-                                    class="p-2 bd-highlight form-control align-baseline" placeholder="cari disini..">
+                            <div class="p-2 bd-highlight"><input type="text" id="searchbar-gudang"
+                                    class="p-2 bd-highlight form-control align-baseline" placeholder="barang, total, status...">
                             </div>
                         </div>
                     </div>
@@ -83,7 +79,7 @@
                                     <th class=" d-xl-table-cell">Stok</th>
                                 </tr>
                             </thead>
-                            <tbody id="aset">
+                            <tbody id="aset-gudang">
                                 @foreach ($gudang as $item)
                                 <tr>
                                     <td class="d-xl-table-cell">{{$item -> barang -> nama}}</td>
@@ -104,9 +100,6 @@
             </div>
         </div>
 </main>
-
 @yield('footer')
 
 @endsection
-
-

@@ -10,24 +10,24 @@
             <div class="card-header">
                 <div class="d-flex stretch bd-highlight">
                     <div class="me-auto p-2 bd-highlight"><input type="text" id="searchbar"
-                            class="p-2 bd-highlight form-control align-baseline" placeholder="cari disini.."></div>
-                    <div class="p-2 bd-highlight"><a href="/gudang/sampah/pulihkan-semua"
-                            class="btn btn-success align-middle">Kembalikan Semua</a></div>
-                    <div class="p-2 bd-highlight"><a href="/gudang/sampah/hapus-permanen-semua"
-                            class="btn btn-danger align-middle">Hapus Permanen Semua</a></div>
+                            class="p-2 bd-highlight form-control align-baseline" placeholder="barang, jumlah, status, kode..."></div>
+                    <div class="p-2 bd-highlight"><a href="#"
+                            class="btn btn-success align-middle pulihkan-semua">Pulihkan Semua</a></div>
+                    <div class="p-2 bd-highlight"><a href="#"
+                            class="btn btn-danger align-middle hapus-semua">Hapus Permanen Semua</a></div>
                 </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover table-striped my-0">
                     <thead>
                         <tr>
-                            <th class="d-xl-table-cell"></th>
+                            <th class="d-md-table-cell text-center text-muted">Cek</th>
                             <th class="d-xl-table-cell">No</th>
                             <th class="d-xl-table-cell">Nama Barang</th>
                             <th class="d-xl-table-cell">Jumlah</th>
                             <th class="d-xl-table-cell">Status</th>
                             <th class="d-md-table-cell">Kode Barang</th>
-                            <th class="d-md-table-cell">Opsi</th>
+                            <th class="d-md-table-cell text-center">Opsi</th>
                         </tr>
                     </thead>
                     <tbody id="sampah">
