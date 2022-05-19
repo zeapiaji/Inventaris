@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
+use App\Models\Ruangan;
 use App\Models\Barang;
 use App\Models\Gudang;
 use App\Models\Akomodasi;
 use Illuminate\Http\Request;
-use App\Http\Requests\KelasFormRequest;
+use App\Http\Requests\RuanganFormRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\KelasJumlahFormRequest;
-use App\Http\Requests\TambahKelasFormRequest;
+use App\Http\Requests\RuanganJumlahFormRequest;
 
 class DBrequest extends Controller
 {
@@ -125,43 +124,43 @@ class DBrequest extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | Kelas
+    | Ruangan
     |--------------------------------------------------------------------------
     */
-    public function akomodasi_aset(KelasJumlahFormRequest $request, $id, $id_brg)
+    public function akomodasi_aset(RuanganJumlahFormRequest $request, $id, $id_brg)
     {
         $request -> validated();
 
         try {
-            $gudang          = Gudang::where('id', $id_brg)->first();
-            $prosesGudang    = $gudang -> total - $request->jumlah;
+            $gudang          = Gudang::where('id', $id_brg) -> first();
+            $prosesGudang    = $gudang -> total - $request -> jumlah;
             $gudang -> total = $prosesGudang;
 
             $akomodasi       = Akomodasi::where('id', $id)->first();
-            $prosesAkomodasi = $akomodasi -> total  + $request->jumlah;
+            $prosesAkomodasi = $akomodasi -> total  + $request -> jumlah;
             $akomodasi -> total = $prosesAkomodasi;
 
             $gudang -> save();
             $akomodasi -> save();
 
-            $kelas = Akomodasi::where('id', $id)->first();
-            $kelas = $kelas -> kelas -> id;
+            $ruangan = Akomodasi::where('id', $id)->first();
+            $ruangan = $ruangan -> ruangan -> id;
 
             Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil ditambahkan!', 'success');
-            return redirect('/kelas/'.$kelas);
+            return redirect('/ruangan/'.$ruangan);
 
         } catch (\Throwable $th) {
-            $kelas = Akomodasi::where('id', $id)->first();
-            $kelas = $kelas -> kelas -> id;
+            $ruangan = Akomodasi::where('id', $id)->first();
+            $ruangan = $ruangan -> ruangan -> id;
 
             Alert::toast('Ada yang salah, silahkan coba lagi nanti!', 'error');
-            return redirect('/kelas/'.$kelas);
+            return redirect('/ruangan/'.$ruangan);
         }
 
     }
 
 
-    public function kembalikan_aset(KelasJumlahFormRequest $request, $id, $id_brg)
+    public function kembalikan_aset(RuanganJumlahFormRequest $request, $id, $id_brg)
     {
         $request ->validated();
 
@@ -177,23 +176,23 @@ class DBrequest extends Controller
             $gudang     -> save();
             $akomodasi  -> save();
 
-            $kelas = Akomodasi::where('id', $id)->first();
-            $kelas = $kelas -> kelas -> id;
+            $ruangan = Akomodasi::where('id', $id)->first();
+            $ruangan = $ruangan -> ruangan -> id;
 
             Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
-            return redirect('/kelas/'.$kelas);
+            return redirect('/ruangan/'.$ruangan);
         } catch (\Throwable $th) {
-            $kelas = Akomodasi::where('id', $id)->first();
-            $kelas = $kelas -> kelas -> id;
+            $ruangan = Akomodasi::where('id', $id)->first();
+            $ruangan = $ruangan -> ruangan -> id;
 
             Alert::toast('Ada yang salah, silahkan coba lagi nanti!', 'error');
-            return redirect('/kelas/'.$kelas);
+            return redirect('/ruangan/'.$ruangan);
         }
 
     }
 
 
-    public function ambil_aset(KelasFormRequest $request, $id)
+    public function ambil_aset(RuanganFormRequest $request, $id)
     {
         $request -> validated();
 
@@ -201,21 +200,29 @@ class DBrequest extends Controller
             $gudang = Gudang::where('barang_id', $request -> nama_brg)
                         ->where('status_id', $request -> status)
                         ->first();
-            $prosesGudang    = $gudang -> total - $request -> jumlah;
-            $gudang -> total = $prosesGudang;
-            $gudang -> save();
+
+            if ($request -> jumlah <= $gudang -> total) {
+                $prosesGudang    = $gudang -> total - $request -> jumlah;
+                $gudang -> total = $prosesGudang;
+                $gudang -> save();
+            }else{
+                $ruangan = Akomodasi::where('ruangan_id', $id)->first();
+                $ruangan = $ruangan -> ruangan -> id;
+                Alert::toast('Aset digudang terlalu sedikit, kurangi request jumlah!', 'error');
+                return redirect('/ruangan/'.$ruangan);
+            }
 
             Akomodasi::create([
                 'total'     => $request -> jumlah,
                 'barang_id' => $request -> nama_brg,
-                'kelas_id'  => $id,
+                'ruangan_id'  => $id,
                 'status_id' => $request -> status,
             ]);
 
-            $kelas = Akomodasi::where('kelas_id', $id)->first();
-            $kelas = $kelas -> kelas -> id;
+            $ruangan = Akomodasi::where('ruangan_id', $id)->first();
+            $ruangan = $ruangan -> ruangan -> id;
             Alert::toast($gudang -> barang -> nama . ' berhasil diambil!', 'success');
-            return redirect('/kelas/'.$kelas);
+            return redirect('/ruangan/'.$ruangan);
 
         } catch (\Throwable $th) {
             Alert::toast('Barang tidak ditemukan, silahkan periksa lagi!', 'error');
@@ -242,28 +249,28 @@ class DBrequest extends Controller
     }
 
 
-    public function unggah_kelas(Request $request)
+    public function unggah_ruangan(Request $request)
     {
         try {
-            Kelas::create([
-                'nama' => $request -> kelas
+            Ruangan::create([
+                'nama' => $request -> ruangan
             ]);
 
-            Alert::toast('Kelas '. $request -> kelas.' berhasil ditambahkan!', 'success');
-            return redirect('/kelas');
+            Alert::toast('Ruangan '. $request -> ruangan.' berhasil ditambahkan!', 'success');
+            return redirect('/ruangan');
         } catch (\Throwable $th) {
-            Alert::toast('Kelas '. $request -> kelas.' gagal ditambahkan!', 'error');
-            return redirect('/kelas');
+            Alert::toast('Ruangan '. $request -> ruangan.' gagal ditambahkan!', 'error');
+            return redirect('/ruangan');
         }
     }
 
 
-    public function hapus_kelas(Request $request)
+    public function hapus_ruangan(Request $request)
     {
         try {
             if ($request->ajax()){
                 $id = $request -> id;
-                Kelas::find($id) -> delete();
+                Ruangan::find($id) -> delete();
 
                 return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
             }
@@ -275,14 +282,14 @@ class DBrequest extends Controller
     }
 
 
-    public function perbarui_kelas(Request $request)
+    public function perbarui_ruangan(Request $request)
     {
         try {
             if ($request->ajax()){
                 $id = $request -> id;
-                $kelas = Kelas::find($id);
-                $kelas -> nama = $request -> nama;
-                $kelas -> update();
+                $ruangan = Ruangan::find($id);
+                $ruangan -> nama = $request -> nama;
+                $ruangan -> update();
 
                 return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
             }

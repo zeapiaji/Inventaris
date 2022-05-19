@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @include('footer')
-@include('kelas.konfig.script')
+@include('ruangan.konfig.script')
 
 @section('content')
 
@@ -23,11 +23,11 @@
                         <tr>
                             <th class="d-sm-table-cell text-muted text-center">Cek</th>
                             <th class="d-xl-table-cell">No</th>
-                            <th class="d-xl-table-cell">Kelas</th>
+                            <th class="d-xl-table-cell">Ruangan</th>
                             <th class="d-xl-table-cell">Opsi</th>
                         </tr>
                     </thead>
-                    <tbody id="kelas">
+                    <tbody id="ruangan">
                         {{-- Data --}}
                     </tbody>
                 </table>
@@ -43,7 +43,8 @@
         </div>
     </div>
 </main>
-@include('kelas.konfig.modal')
+@include('ruangan.konfig.modal')
 @yield('footer')
 @yield('script')
+
 @endsection

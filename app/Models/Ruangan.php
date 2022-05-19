@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Kelas extends Model
+class Ruangan extends Model
 {
     use HasFactory;
 
-    protected $table = 'kelas';
+    protected $table = 'ruangan';
     protected $fillable = [
         'nama'
     ];
-    public $timestamps = false;
+
     /**
      * Get all of the akomodasi_kelas for the Kelas
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Akomodasi()
+    public function akomodasi()
     {
-        return $this->hasMany(akomodasi_kelas::class);
+        return $this->hasMany(Akomodasi::class);
     }
 
 }

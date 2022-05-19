@@ -1,4 +1,3 @@
-
 @foreach ($gudang as $item)
 <tr>
     <td class="border-end text-center"><input type="checkbox" class="checkbox" data-id="{{$item -> id}}"></td>

@@ -66,10 +66,10 @@
 
                     <li class="sidebar-header">Aset</li>
 
-                    <li class="sidebar-item {{ Route::currentRouteNamed( 'kelas' ) ?  'active' : '' }}">
-                        <a class="sidebar-link" href="/kelas">
+                    <li class="sidebar-item {{ Route::currentRouteNamed( 'ruangan' ) ?  'active' : '' }}">
+                        <a class="sidebar-link" href="/ruangan">
                             <i class="align-middle" data-feather="square"></i>
-                            <span class="align-middle">Kelas</span>
+                            <span class="align-middle">Ruangan</span>
                         </a>
                     </li>
 

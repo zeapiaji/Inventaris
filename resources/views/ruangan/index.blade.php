@@ -5,7 +5,7 @@
 <main class="content">
     <div class="container-fluid p-0">
 
-        <h1 class="h3 mb-3">Aset Kelas <strong>{{$identitas -> nama}}</strong></h1>
+        <h1 class="h3 mb-3">Aset Ruangan <strong>{{$identitas -> nama}}</strong></h1>
 
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8 d-flex">
@@ -45,9 +45,9 @@
                                         </span>
                                     </td>
                                     <td class=" d-xl-table-cell">
-                                        <a href="/aset/kelas/detail/akomodasi-aset/{{$item -> id}}/barang/{{$item -> barang -> id}}"
+                                        <a href="/aset/ruangan/detail/akomodasi-aset/{{$item -> id}}/barang/{{$item -> barang -> id}}"
                                             class="btn btn-sm btn-success">Tambah</a>
-                                        <a href="/aset/kelas/detail/kembalikan-aset/{{$item -> id}}/barang/{{$item -> barang -> id}}"
+                                        <a href="/aset/ruangan/detail/kembalikan-aset/{{$item -> id}}/barang/{{$item -> barang -> id}}"
                                             data-id="{{$item -> barang -> id}}"
                                             class="btn btn-sm btn-warning kembalikan">Kembalikan</a>
                                     </td>

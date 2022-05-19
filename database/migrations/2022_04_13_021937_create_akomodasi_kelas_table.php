@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->integer('total');
             $table->foreignId('barang_id');
-            $table->foreignId('kelas_id');
+            $table->foreignId('ruangan_id');
             $table->foreignId('status_id');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('barang_id')->references('id')->on('barang');
-            $table->foreign('kelas_id')->references('id')->on('kelas');
+            $table->foreign('ruangan_id')->references('id')->on('ruangan');
             $table->foreign('status_id')->references('id')->on('status');
         });
     }

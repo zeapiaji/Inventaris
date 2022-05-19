@@ -7,11 +7,11 @@
     <div class="container-fluid p-0">
 
         <h1 class="h3 mb-3">Ambil Aset dari <strong>Gudang</strong></h1>
-        
+
         <div class="row">
             <div class="col-xl-8 col-xxl-8 col-sm-12 col-md-12 col-lg-12 d-flex">
                 <div class="card flex-fill p-4">
-                    <form action="/kelas/ambil-aset/{{$data->id}}" method="POST">
+                    <form action="/ruangan/ambil-aset/{{$data->id}}" method="POST">
                         @csrf
                         <div class="row mb-3">
                             <label for="nama-brg" class="col-sm-3 col-form-label">Nama Barang</label>

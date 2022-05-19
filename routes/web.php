@@ -21,15 +21,15 @@ Route::get('/', [\App\Http\Controllers\GudangController::class, 'dasbor'])->name
 | Parrent Data
 |--------------------------------------------------------------------------
 */
-Route::get('/data-konfig', [\App\Http\Controllers\KelasController::class, 'data_konfig'])->name('data.kelas');
-Route::get('/konfig-kelas', [\App\Http\Controllers\KelasController::class, 'konfig_kelas'])->name('konfig.kelas');
+Route::get('/data-konfig', [\App\Http\Controllers\RuanganController::class, 'data_konfig'])->name('data.ruangan');
+Route::get('/konfig-ruangan', [\App\Http\Controllers\RuanganController::class, 'konfig_ruangan'])->name('konfig.ruangan');
 
-Route::get('/tambah-kelas', [\App\Http\Controllers\KelasController::class, 'tambah_kelas'])->name('tambah.kelas');
-Route::get('/unggah-kelas', [\App\Http\Controllers\DBrequest::class, 'unggah_kelas'])->name('unggah.kelas');
+Route::get('/tambah-ruangan', [\App\Http\Controllers\RuanganController::class, 'tambah_ruangan'])->name('tambah.ruangan');
+Route::get('/unggah-ruangan', [\App\Http\Controllers\DBrequest::class, 'unggah_ruangan'])->name('unggah.ruangan');
 
-Route::post('/perbarui-kelas', [\App\Http\Controllers\DBrequest::class, 'perbarui_kelas'])->name('perbarui.kelas');
+Route::post('/perbarui-ruangan', [\App\Http\Controllers\DBrequest::class, 'perbarui_ruangan'])->name('perbarui.ruangan');
 
-Route::post('/hapus-kelas', [\App\Http\Controllers\DBrequest::class, 'hapus_kelas'])->name('hapus.kelas');
+Route::post('/hapus-ruangan', [\App\Http\Controllers\DBrequest::class, 'hapus_ruangan'])->name('hapus.ruangan');
 
 /*
 |--------------------------------------------------------------------------
@@ -48,14 +48,14 @@ Route::delete('multiple-delete', [\App\Http\Controllers\DBrequest::class, 'multi
 | Kelas
 |--------------------------------------------------------------------------
 */
-Route::get('/kelas', [\App\Http\Controllers\KelasController::class, 'kelas'])->name('kelas');
-Route::name('detail')->get('/kelas/{id}', [\App\Http\Controllers\KelasController::class, 'detail']);
-Route::get('/kelas/ambil/{id}', [\App\Http\Controllers\KelasController::class, 'ambil'])->name('kelas.ambil');
-Route::post('/kelas/ambil-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'ambil_aset'])->name('ambil_aset');
-Route::post('/aset/kelas/detail/akomodasi/{id}/barang/{id_brg}', [\App\Http\Controllers\DBrequest::class, 'akomodasi_aset'])->name('akomodasi.aset');
-Route::get('/aset/kelas/detail/akomodasi-aset/{id}/barang/{id_brg}', [\App\Http\Controllers\KelasController::class, 'akomodasi'])->name('akomodasi');
-Route::get('/aset/kelas/detail/kembalikan-aset/{id}/barang/{id_brg}', [\App\Http\Controllers\KelasController::class, 'kembalikan'])->name('kembalikan');
-Route::post('/aset/kelas/detail/kembalikan/{id}/barang/{id_brg}', [\App\Http\Controllers\DBrequest::class, 'kembalikan_aset'])->name('kembalikan.aset');
+Route::get('/ruangan', [\App\Http\Controllers\RuanganController::class, 'ruangan'])->name('ruangan');
+Route::name('detail')->get('/ruangan/{id}', [\App\Http\Controllers\RuanganController::class, 'detail']);
+Route::get('/ruangan/ambil/{id}', [\App\Http\Controllers\RuanganController::class, 'ambil'])->name('ruangan.ambil');
+Route::post('/ruangan/ambil-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'ambil_aset'])->name('ambil_aset');
+Route::post('/aset/ruangan/detail/akomodasi/{id}/barang/{id_brg}', [\App\Http\Controllers\DBrequest::class, 'akomodasi_aset'])->name('akomodasi.aset');
+Route::get('/aset/ruangan/detail/akomodasi-aset/{id}/barang/{id_brg}', [\App\Http\Controllers\RuanganController::class, 'akomodasi'])->name('akomodasi');
+Route::get('/aset/ruangan/detail/kembalikan-aset/{id}/barang/{id_brg}', [\App\Http\Controllers\RuanganController::class, 'kembalikan'])->name('kembalikan');
+Route::post('/aset/ruangan/detail/kembalikan/{id}/barang/{id_brg}', [\App\Http\Controllers\DBrequest::class, 'kembalikan_aset'])->name('kembalikan.aset');
 
 /*
 |--------------------------------------------------------------------------

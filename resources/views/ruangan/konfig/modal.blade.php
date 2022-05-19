@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bolder" id="myModalLabel">Tambah Kelas</h5>
+                <h5 class="modal-title fw-bolder" id="myModalLabel">Tambah Ruangan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -14,11 +14,11 @@
                     </ul>
                 </div>
 
-                <form action="{{ URL::to('unggah-kelas') }}" id="addForm">
+                <form action="{{ URL::to('unggah-ruangan') }}" id="addForm">
                     <div class="row mb-3">
-                        <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+                        <label for="ruangan" class="col-sm-2 col-form-label">Ruangan</label>
                         <div class="col-sm-10">
-                            <input type="text" name="kelas" class="form-control" id="kelas" required>
+                            <input type="text" name="ruangan" class="form-control" id="ruangan" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -36,7 +36,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Edit Kelas</h5>
+                <h5 class="modal-title" id="myModalLabel">Edit Ruangan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -47,12 +47,12 @@
                     </ul>
                 </div>
 
-                <form action="{{ URL::to('perbarui-kelas') }}" id="editForm">
+                <form action="{{ URL::to('perbarui-ruangan') }}" id="editForm">
                     <input type="hidden" id="memid" name="id">
                     <div class="row mb-3">
-                        <label for="kelas" class="col-sm-2 col-form-label">Kelas</label>
+                        <label for="ruangan" class="col-sm-2 col-form-label">Ruangan</label>
                         <div class="col-sm-10">
-                            <input type="text" name="kelas" class="form-control" id="kelas">
+                            <input type="text" name="ruangan" class="form-control" id="ruangan">
                         </div>
                     </div>
 

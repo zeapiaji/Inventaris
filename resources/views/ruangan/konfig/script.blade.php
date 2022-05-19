@@ -11,7 +11,7 @@
 
         function showData() {
             $.get("{{ URL::to('data-konfig') }}", function (data) {
-                $('#kelas').empty().html(data);
+                $('#ruangan').empty().html(data);
             });
         }
 
@@ -22,9 +22,9 @@
         $(document).on('click', '.edit', function (event) {
             event.preventDefault();
             var id = $(this).data('id');
-            var kelas = $(this).data('kelas');
+            var ruangan = $(this).data('ruangan');
             $('#editmodal').modal('show');
-            $('#kelas').val(kelas);
+            $('#ruangan').val(ruangan);
             $('#memid').val(id);
         });
 
@@ -33,11 +33,17 @@
             e.preventDefault();
             var form = $(this).serialize();
             var url = $(this).attr('action');
-            $.post(url, form, function (data) {
+            $.POS(url, form, function (data) {
                 $('#editmodal').modal('hide');
                 toastUpdate();
                 showData();
             })
+            $.post("url", data,
+                function (data, textStatus, jqXHR) {
+
+                },
+                "dataType"
+            );
         });
 
 
@@ -53,7 +59,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).data('id');
-                    $.post("{{ URL::to('hapus-kelas') }}", {
+                    $.post("{{ URL::to('hapus-ruangan') }}", {
                         id: id
                     }, function () {
                         toastDelete();
@@ -146,7 +152,7 @@
 
             Toast.fire({
                 icon: 'success',
-                title: 'Kelas berhasil dihapus!'
+                title: 'Ruangan berhasil dihapus!'
             })
         }
 
@@ -165,7 +171,7 @@
 
             Toast.fire({
                 icon: 'success',
-                title: 'Kelas berhasil diperbarui!'
+                title: 'Ruangan berhasil diperbarui!'
             })
         }
 

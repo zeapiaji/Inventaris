@@ -45,15 +45,15 @@ class mainseeder extends Seeder
             'kode'          => 'PB',
         ]);
 
-        DB::table('kelas')->insert([
+        DB::table('ruangan')->insert([
             'nama'          => 'X RPL',
         ]);
 
-        DB::table('kelas')->insert([
+        DB::table('ruangan')->insert([
             'nama'          => 'XI RPL',
         ]);
 
-        DB::table('kelas')->insert([
+        DB::table('ruangan')->insert([
             'nama'          => 'XII RPL',
         ]);
 
@@ -78,21 +78,21 @@ class mainseeder extends Seeder
         DB::table('akomodasi')->insert([
             'total'     => random_int(1,35),
             'barang_id' => 1,
-            'kelas_id'  => 1,
+            'ruangan_id'  => 1,
             'status_id' => 1,
         ]);
 
         DB::table('akomodasi')->insert([
             'total'     => random_int(1,60),
             'barang_id' => 2,
-            'kelas_id'  => 2,
+            'ruangan_id'  => 2,
             'status_id' => 2,
         ]);
 
         DB::table('akomodasi')->insert([
             'total'     => random_int(3,3),
             'barang_id' => 3,
-            'kelas_id'  => 3,
+            'ruangan_id'  => 3,
             'status_id' => 3,
         ]);
 

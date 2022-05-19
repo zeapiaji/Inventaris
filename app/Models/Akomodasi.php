@@ -15,7 +15,7 @@ class Akomodasi extends Model
     protected $fillable = [
         'total',
         'barang_id',
-        'kelas_id',
+        'ruangan_id',
         'status_id'
     ];
 
@@ -44,8 +44,8 @@ class Akomodasi extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function kelas()
+    public function ruangan()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id');
+        return $this->belongsTo(Ruangan::class, 'ruangan_id');
     }
 }

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
-use App\Models\Barang;
+use App\Models\Ruangan;
 use App\Models\Gudang;
 use App\Models\Akomodasi;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class KelasController extends Controller
+class RuanganController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,78 +19,59 @@ class KelasController extends Controller
     }
 
     /**
-     * Show the kelas page.
+     * Show the Ruangan page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function kelas()
+    public function ruangan()
     {
-        // $data   = Gudang::all();
-
-        $data = Kelas::all();
+        $data = Ruangan::all();
         $no = 1;
 
-        return view('kelas', compact(
+        return view('ruangan', compact(
             'data',
             'no'
         ));
     }
 
 
-    // public function data_kelas($id)
-    // {
-    //     dump($id);
-    //     $data = Akomodasi::where('kelas_id', $id)->get();
-    //     $no   = 1;
-
-    //     return view('kelas.data', compact(
-    //         'data',
-    //         'no'
-    //     ));
-    // }
-
-
-    public function detail($id, Kelas $kelas)
+    public function detail($id, Ruangan $ruangan)
     {
         $sampah    = Akomodasi::where('total', 0) -> forceDelete();
 
-        $data      = Akomodasi::where('kelas_id', $id)->get();
-        $identitas = Kelas::find($id);
+        $data      = Akomodasi::where('Ruangan_id', $id)->get();
+        $identitas = Ruangan::find($id);
 
         // Sidebar
         $gudang    = Gudang::all();
         $no = 1;
 
-        return view('kelas.index', compact(
+        return view('ruangan.index', compact(
             'identitas',
             'data',
             'gudang',
             'no',
-            'kelas'
+            'ruangan'
         ));
     }
 
 
-    public function tambah_kelas()
+    public function konfig_Ruangan()
     {
-        return view('kelas.konfig.tambah');
+        return view('ruangan.konfig.index');
     }
 
-
-    public function konfig_kelas()
-    {
-        return view('kelas.konfig.index');
-    }
 
     public function data_konfig()
     {
-        $kelas = Kelas::all();
-        $no    = 1;
-        return view('kelas.konfig.data', compact(
-            'kelas',
+        $ruangan = Ruangan::all();
+        $no      = 1;
+        return view('ruangan.konfig.data', compact(
+            'ruangan',
             'no'
         ));
     }
+
 
     public function akomodasi($id, $id_brg)
     {
@@ -105,7 +84,7 @@ class KelasController extends Controller
         $all = Gudang::all();
         $no = 1;
 
-        return view('kelas.akomodasi', compact(
+        return view('ruangan.akomodasi', compact(
             'data',
             'maxData',
             'barang',
@@ -113,6 +92,7 @@ class KelasController extends Controller
             'no',
         ));
     }
+
 
     public function kembalikan($id, $id_brg)
     {
@@ -125,7 +105,7 @@ class KelasController extends Controller
         $gudang = Gudang::all();
         $no = 1;
 
-        return view('kelas.kembalikan', compact(
+        return view('ruangan.kembalikan', compact(
             'data',
             'maxData',
             'barang',
@@ -134,16 +114,18 @@ class KelasController extends Controller
         ));
     }
 
+
     public function ambil($id)
     {
-        $data   = Kelas::find($id);
+        $data   = Ruangan::find($id);
         $gudang = Gudang::where('total', '>', 0)
                     ->where('status_id','<','4')
                     ->get();
-        return view('kelas.ambil', compact(
+        return view('Ruangan.ambil', compact(
             'data',
             'gudang',
         ));
     }
+
 
 }
