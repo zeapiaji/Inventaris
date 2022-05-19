@@ -30,43 +30,26 @@ class DBrequest extends Controller
     *  var_dump($string);
     */
 
-    public function __construct()
-    {
-        $this->middleware(function($request,$next){
-            if (session('success')) {
-                Alert::success(session('success'));
-            }
+    // public function __construct()
+    // {
+    //     $this->middleware(function($request,$next){
+    //         if (session('success')) {
+    //             Alert::success(session('success'));
+    //         }
 
-            if (session('error')) {
-                Alert::error(session('error'));
-            }
+    //         if (session('error')) {
+    //             Alert::error(session('error'));
+    //         }
 
-            return $next($request);
-        });
-    }
+    //         return $next($request);
+    //     });
+    // }
 
     /*
     |--------------------------------------------------------------------------
     | Gudang
     |--------------------------------------------------------------------------
     */
-    public function tambah_kelas_unggah(TambahKelasFormRequest $request)
-    {
-        $request -> validated();
-
-        try {
-            Kelas::create([
-                'nama' => $request -> nama_kelas
-            ]);
-
-            Alert::toast('Kelas '. $request -> nama_kelas.' berhasil ditambahkan!', 'success');
-            return redirect('/kelas');
-        } catch (\Throwable $th) {
-            Alert::toast('Kelas '. $request -> nama_kelas.' gagal ditambahkan!', 'error');
-            return redirect('/kelas');
-        }
-    }
-
 
     public function unggah(Request $request)
     {
@@ -183,44 +166,22 @@ class DBrequest extends Controller
         $request ->validated();
 
         try {
-                $gudang          = Gudang::where('barang_id', $id_brg)->first();
-                $prosesGudang    = $gudang -> total + $request->jumlah;
-                $gudang -> total = $prosesGudang;
+            $gudang             = Gudang::where('barang_id', $id_brg)->first();
+            $prosesGudang       = $gudang -> total + $request->jumlah;
+            $gudang -> total    = $prosesGudang;
 
-                $akomodasi       = Akomodasi::where('id', $id)->first();
-                $prosesAkomodasi = $akomodasi -> total  - $request->jumlah;
-                $akomodasi -> total = $prosesAkomodasi;
-                $gudang -> save();
-                $akomodasi -> save();
+            $akomodasi          = Akomodasi::where('id', $id)->first();
+            $prosesAkomodasi    = $akomodasi -> total - $request -> jumlah;
+            $akomodasi -> total = $prosesAkomodasi;
 
-                $kelas = Akomodasi::where('id', $id)->first();
-                $kelas = $kelas -> kelas -> id;
+            $gudang     -> save();
+            $akomodasi  -> save();
 
-                Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
-                return redirect('/kelas/'.$kelas);
-            // } catch (\Throwable $th) {
-            //     Gudang::create([
-            //         'total' => $request -> jumlah,
-            //         'barang_id' => $id_brg,
-            //         'status_id' => 1,
-            //     ]);
+            $kelas = Akomodasi::where('id', $id)->first();
+            $kelas = $kelas -> kelas -> id;
 
-            //     $gudang          = Gudang::where('barang_id', $id_brg)->first();
-            //     $prosesGudang    = $gudang -> total + $request->jumlah;
-            //     $gudang -> total = $prosesGudang;
-
-            //     $akomodasi       = Akomodasi::where('id', $id)->first();
-            //     $prosesAkomodasi = $akomodasi -> total  - $request->jumlah;
-            //     $akomodasi -> total = $prosesAkomodasi;
-            //     $gudang -> save();
-            //     $akomodasi -> save();
-
-            //     $kelas = Akomodasi::where('id', $id)->first();
-            //     $kelas = $kelas -> kelas -> id;
-
-            //     Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
-            //     return redirect('/kelas/'.$kelas);
-            // }
+            Alert::toast($request -> jumlah . ' '. $gudang -> barang -> nama. ' berhasil dikembalikan!', 'success');
+            return redirect('/kelas/'.$kelas);
         } catch (\Throwable $th) {
             $kelas = Akomodasi::where('id', $id)->first();
             $kelas = $kelas -> kelas -> id;
@@ -235,34 +196,30 @@ class DBrequest extends Controller
     public function ambil_aset(KelasFormRequest $request, $id)
     {
         $request -> validated();
-        $gudang = Gudang::where('barang_id', $request -> nama_brg)
-                    ->where('status_id', $request -> status)
-                    ->first();
-        // dd($gudang);
-        $prosesGudang    = $gudang -> total - $request -> jumlah;
-        $gudang -> total = $prosesGudang;
-        $gudang -> save();
 
-        Akomodasi::create([
-            'total'     => $request -> jumlah,
-            'barang_id' => $request -> nama_brg,
-            'kelas_id'  => $id,
-            'status_id' => $request -> status,
-        ]);
-
-        $kelas = Akomodasi::where('id', $id)->first();
-        $kelas = $kelas -> kelas -> id;
-
-        Alert::toast($gudang -> barang -> nama . ' berhasil diambil!', 'success');
-        return redirect('/kelas/'.$kelas);
         try {
+            $gudang = Gudang::where('barang_id', $request -> nama_brg)
+                        ->where('status_id', $request -> status)
+                        ->first();
+            $prosesGudang    = $gudang -> total - $request -> jumlah;
+            $gudang -> total = $prosesGudang;
+            $gudang -> save();
+
+            Akomodasi::create([
+                'total'     => $request -> jumlah,
+                'barang_id' => $request -> nama_brg,
+                'kelas_id'  => $id,
+                'status_id' => $request -> status,
+            ]);
+
+            $kelas = Akomodasi::where('kelas_id', $id)->first();
+            $kelas = $kelas -> kelas -> id;
+            Alert::toast($gudang -> barang -> nama . ' berhasil diambil!', 'success');
+            return redirect('/kelas/'.$kelas);
 
         } catch (\Throwable $th) {
-            $kelas = Akomodasi::where('id', $id)->first();
-            $kelas = $kelas -> kelas -> id;
-
-            Alert::toast('Ada yang salah, silahkan coba lagi nanti!', 'error');
-            return redirect('/kelas/'.$kelas);
+            Alert::toast('Barang tidak ditemukan, silahkan periksa lagi!', 'error');
+            return redirect()->back();
         }
 
     }
@@ -274,6 +231,58 @@ class DBrequest extends Controller
             if ($request->ajax()){
                 $id = $request -> id;
                 Gudang::find($id) -> delete();
+
+                return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
+            }
+        } catch (\Throwable $th) {
+            Alert::toast('Aset gagal dihapus!', 'error');
+            return redirect()->back();
+        }
+
+    }
+
+
+    public function unggah_kelas(Request $request)
+    {
+        try {
+            Kelas::create([
+                'nama' => $request -> kelas
+            ]);
+
+            Alert::toast('Kelas '. $request -> kelas.' berhasil ditambahkan!', 'success');
+            return redirect('/kelas');
+        } catch (\Throwable $th) {
+            Alert::toast('Kelas '. $request -> kelas.' gagal ditambahkan!', 'error');
+            return redirect('/kelas');
+        }
+    }
+
+
+    public function hapus_kelas(Request $request)
+    {
+        try {
+            if ($request->ajax()){
+                $id = $request -> id;
+                Kelas::find($id) -> delete();
+
+                return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
+            }
+        } catch (\Throwable $th) {
+            Alert::toast('Aset gagal dihapus!', 'error');
+            return redirect()->back();
+        }
+
+    }
+
+
+    public function perbarui_kelas(Request $request)
+    {
+        try {
+            if ($request->ajax()){
+                $id = $request -> id;
+                $kelas = Kelas::find($id);
+                $kelas -> nama = $request -> nama;
+                $kelas -> update();
 
                 return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
             }

@@ -102,11 +102,7 @@
                         <label for="nama-barang" class="col-sm-2 col-form-label">Nama Barang</label>
                         <div class="col-sm-10">
                             <input type="text" name="nama_brg"
-                                class="form-control @error('nama_brg') is-invalid @enderror" id="barang"
-                                value="{{ old('nama_brg') }}">
-                            @error('nama_brg')
-                            <div class="invalid-feedback">{{$message}}</div>
-                            @enderror
+                                class="form-control" id="barang">
                         </div>
                     </div>
 

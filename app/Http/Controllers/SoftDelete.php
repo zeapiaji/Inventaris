@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barang;
 use App\Models\Gudang;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;

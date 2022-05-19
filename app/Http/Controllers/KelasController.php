@@ -52,13 +52,13 @@ class KelasController extends Controller
     // }
 
 
-    public function detail($id)
+    public function detail($id, Kelas $kelas)
     {
+        $sampah    = Akomodasi::where('total', 0) -> forceDelete();
+
         $data      = Akomodasi::where('kelas_id', $id)->get();
         $identitas = Kelas::find($id);
 
-        // Bila total 0 maka dihapus
-        $sampah    = Akomodasi::where('total', 0) -> forceDelete();
         // Sidebar
         $gudang    = Gudang::all();
         $no = 1;
@@ -67,16 +67,32 @@ class KelasController extends Controller
             'identitas',
             'data',
             'gudang',
-            'no'
+            'no',
+            'kelas'
         ));
     }
 
 
     public function tambah_kelas()
     {
-        return view('kelas.tambah_kelas');
+        return view('kelas.konfig.tambah');
     }
 
+
+    public function konfig_kelas()
+    {
+        return view('kelas.konfig.index');
+    }
+
+    public function data_konfig()
+    {
+        $kelas = Kelas::all();
+        $no    = 1;
+        return view('kelas.konfig.data', compact(
+            'kelas',
+            'no'
+        ));
+    }
 
     public function akomodasi($id, $id_brg)
     {
@@ -121,7 +137,9 @@ class KelasController extends Controller
     public function ambil($id)
     {
         $data   = Kelas::find($id);
-        $gudang = Gudang::where('total', '>', 0)->get();
+        $gudang = Gudang::where('total', '>', 0)
+                    ->where('status_id','<','4')
+                    ->get();
         return view('kelas.ambil', compact(
             'data',
             'gudang',

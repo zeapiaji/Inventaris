@@ -24,7 +24,7 @@ class KelasJumlahFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'jumlah' => 'required|min:1',
+            'jumlah' => 'required|numeric|min:1',
             'jumlah' => 'not_regex:/-/',
         ];
     }

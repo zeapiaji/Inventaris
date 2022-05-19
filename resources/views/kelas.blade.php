@@ -6,14 +6,19 @@
 <main class="content">
     <div class="container-fluid p-0">
 
-        <h1 class="h3 mb-3">Aset <strong>Kelas</strong> </h1>
+        <div class="flex-fill">
+            <div class="d-flex">
+                <div class="me-auto"><h1 class="h3 mb-3">Aset <strong>Kelas</strong> </h1></div>
 
+            </div>
+        </div>
 
         <div class="card flex-fill p-2">
             <div class="card-header">
                 <div class="d-flex stretch bd-highlight">
                     <div class="me-auto p-2 bd-highlight"><h5 class="card-title mb-0">Kelas</h5></div>
-                    <div class="p-2 bd-highlight"><a href="/tambah-kelas" class="btn btn-info">Tambah Kelas</a></div>
+                    {{-- <div class="p-2 bd-highlight"><a href="/tambah-kelas" class="btn btn-info">Konfigurasi Kelas</a></div> --}}
+                    <div class="p-2 bd-highlight"><a href="/konfig-kelas" class="btn btn-info">Konfigurasi Kelas</a></div>
                     <div class="p-2 bd-highlight">
                         <input type="text" id="searchbar" class="p-2 bd-highlight form-control align-baseline" placeholder="cari disini..">
                     </div>

@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\DBrequest;
-use App\Http\Controllers\GudangController;
-use App\Http\Livewire\Post\Index;
-use App\Models\Akomodasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +21,15 @@ Route::get('/', [\App\Http\Controllers\GudangController::class, 'dasbor'])->name
 | Parrent Data
 |--------------------------------------------------------------------------
 */
+Route::get('/data-konfig', [\App\Http\Controllers\KelasController::class, 'data_konfig'])->name('data.kelas');
+Route::get('/konfig-kelas', [\App\Http\Controllers\KelasController::class, 'konfig_kelas'])->name('konfig.kelas');
+
 Route::get('/tambah-kelas', [\App\Http\Controllers\KelasController::class, 'tambah_kelas'])->name('tambah.kelas');
-Route::post('/tambah-kelas/unggah', [\App\Http\Controllers\DBrequest::class, 'tambah_kelas_unggah'])->name('tambah.kelas.unggah');
+Route::get('/unggah-kelas', [\App\Http\Controllers\DBrequest::class, 'unggah_kelas'])->name('unggah.kelas');
+
+Route::post('/perbarui-kelas', [\App\Http\Controllers\DBrequest::class, 'perbarui_kelas'])->name('perbarui.kelas');
+
+Route::post('/hapus-kelas', [\App\Http\Controllers\DBrequest::class, 'hapus_kelas'])->name('hapus.kelas');
 
 /*
 |--------------------------------------------------------------------------
@@ -46,8 +49,8 @@ Route::delete('multiple-delete', [\App\Http\Controllers\DBrequest::class, 'multi
 |--------------------------------------------------------------------------
 */
 Route::get('/kelas', [\App\Http\Controllers\KelasController::class, 'kelas'])->name('kelas');
-Route::get('/kelas/{id}', [\App\Http\Controllers\KelasController::class, 'detail'])->name('detail');
-Route::get('/kelas/ambil/{id}', [\App\Http\Controllers\KelasController::class, 'ambil'])->name('ambil');
+Route::name('detail')->get('/kelas/{id}', [\App\Http\Controllers\KelasController::class, 'detail']);
+Route::get('/kelas/ambil/{id}', [\App\Http\Controllers\KelasController::class, 'ambil'])->name('kelas.ambil');
 Route::post('/kelas/ambil-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'ambil_aset'])->name('ambil_aset');
 Route::post('/aset/kelas/detail/akomodasi/{id}/barang/{id_brg}', [\App\Http\Controllers\DBrequest::class, 'akomodasi_aset'])->name('akomodasi.aset');
 Route::get('/aset/kelas/detail/akomodasi-aset/{id}/barang/{id_brg}', [\App\Http\Controllers\KelasController::class, 'akomodasi'])->name('akomodasi');

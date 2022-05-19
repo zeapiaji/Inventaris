@@ -7,7 +7,7 @@
     <div class="container-fluid p-0">
 
         <h1 class="h3 mb-3">Ambil Aset dari <strong>Gudang</strong></h1>
-
+        
         <div class="row">
             <div class="col-xl-8 col-xxl-8 col-sm-12 col-md-12 col-lg-12 d-flex">
                 <div class="card flex-fill p-4">
@@ -64,13 +64,6 @@
                                         type="radio" id="gridRadios3" value="3">
                                     <label class="form-check-label" for="gridRadios3">
                                         Rusak Ringan
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input @error('status') is-invalid @enderror" name="status"
-                                        type="radio" id="gridRadios4" value="4">
-                                    <label class="form-check-label" for="gridRadios4">
-                                        Rusak
                                     </label>
                                 </div>
                                 @error('status')

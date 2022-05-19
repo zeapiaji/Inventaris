@@ -46,6 +46,7 @@
                             <thead>
                                 <tr>
                                     <th class=" d-xl-table-cell">Nama Barang</th>
+                                    <th class=" d-xl-table-cell">Status</th>
                                     <th class=" d-xl-table-cell">Stok</th>
                                 </tr>
                             </thead>
@@ -53,6 +54,7 @@
                                 @foreach ($gudang as $item)
                                 <tr>
                                     <td class="d-xl-table-cell">{{$item -> barang -> nama}}</td>
+                                    <td class="d-xl-table-cell">{{$item -> status -> nama}}</td>
                                     <td class="d-xl-table-cell">{{$item -> total}}</td>
                                 </tr>
                                 @endforeach

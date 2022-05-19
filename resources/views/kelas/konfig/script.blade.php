@@ -10,8 +10,8 @@
 
 
         function showData() {
-            $.get("{{ URL::to('data') }}", function (data) {
-                $('#aset').empty().html(data);
+            $.get("{{ URL::to('data-konfig') }}", function (data) {
+                $('#kelas').empty().html(data);
             });
         }
 
@@ -19,37 +19,12 @@
         showData();
 
 
-        $('#addForm').on('submit', function (e) {
-            e.preventDefault();
-            var form = $(this).serialize();
-            var url = $(this).attr('action');
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: form,
-                dataType: 'json',
-                success: function () {
-                    $('#addnew').modal('hide');
-                    $('#addForm')[0].reset();
-                    toastStore();
-                    showData();
-                }
-            });
-        });
-
-
         $(document).on('click', '.edit', function (event) {
             event.preventDefault();
             var id = $(this).data('id');
-            var barang = $(this).data('barang');
-            var total = $(this).data('total');
-            var kode = $(this).data('kode');
-            var status = $(this).data('status');
+            var kelas = $(this).data('kelas');
             $('#editmodal').modal('show');
-            $('#barang').val(barang);
-            $('#total').val(total);
-            $('#kode').val(kode);
-            $('#status').val(status);
+            $('#kelas').val(kelas);
             $('#memid').val(id);
         });
 
@@ -66,20 +41,19 @@
         });
 
 
-        $(document).on('click', '.delete', function (event) {
+        $(document).on('click', '.hapus', function (event) {
             Swal.fire({
                 title: 'Apakah anda yakin?',
-                text: "*aset yang dipilih akan dipindahkan ke sampah!",
+                text: "*aset akan dihapus!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yakin',
-                cancelButtonText: 'Batal',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya'
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).data('id');
-                    $.post("{{ URL::to('hapus') }}", {
+                    $.post("{{ URL::to('hapus-kelas') }}", {
                         id: id
                     }, function () {
                         toastDelete();
@@ -89,10 +63,56 @@
             })
         });
 
-        // Pagination
+
+        $('.delete-all').on('click', function (e) {
+            var idsArr = [];
+            $(".checkbox:checked").each(function () {
+                idsArr.push($(this).attr('data-id'));
+            });
+            if (idsArr.length <= 0) {
+                toastNull()
+            } else {
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "*aset yang dipilih akan dihapus secara permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yakin',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var strIds = idsArr.join(",");
+                        $.ajax({
+                            url: "{{ URL::to('sampah_hapus_multi') }}",
+                            type: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content')
+                            },
+                            data: 'ids=' + strIds,
+                            success: function (data) {
+                                if (data['status'] == true) {
+                                    $(".checkbox:checked").each(function () {
+                                        $(this).parents("tr").remove();
+                                    });
+                                } else {
+                                    alert('Whoops ada yang salah!!');
+                                }
+                                showData();
+                            },
+                            error: function (data) {
+                                alert(data.responseText);
+                            }
+                        });
+                        toastDelete();
+                    }
+                })
+            }
+        });
 
 
-        // CheckBox
         $('#check_all').on('click', function (e) {
             if ($(this).is(':checked', true)) {
                 $(".checkbox").prop('checked', true);
@@ -110,58 +130,8 @@
             }
         });
 
-
-        $('.delete-all').on('click', function (e) {
-            var idsArr = [];
-            $(".checkbox:checked").each(function () {
-                idsArr.push($(this).attr('data-id'));
-            });
-            if (idsArr.length <= 0) {
-                toastNull()
-            } else {
-                Swal.fire({
-                    title: 'Apakah anda yakin?',
-                    text: "*aset yang dipilih akan dipindahkan ke sampah!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yakin',
-                    cancelButtonText: 'Batal',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var strIds = idsArr.join(",");
-                        $.ajax({
-                            url: "{{ URL::to('multiple-delete') }}",
-                            type: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                                    'content')
-                            },
-                            data: 'ids=' + strIds,
-                            success: function (data) {
-                                if (data['status'] == true) {
-                                    $(".checkbox:checked").each(function () {
-                                        $(this).parents("tr").remove();
-                                    });
-                                } else {
-                                    alert('Whoops Something went wrong!!');
-                                }
-                                showData();
-                            },
-                            error: function (data) {
-                                alert(data.responseText);
-                            }
-                        });
-                        toastDelete();
-                    }
-                })
-            }
-        });
-
-
-        // Alert
-        function toastStore() {
+        // Toast
+        function toastDelete() {
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -176,10 +146,9 @@
 
             Toast.fire({
                 icon: 'success',
-                title: 'Aset berhasil diregistrasi!'
+                title: 'Kelas berhasil dihapus!'
             })
         }
-
 
         function toastUpdate() {
             const Toast = Swal.mixin({
@@ -196,27 +165,7 @@
 
             Toast.fire({
                 icon: 'success',
-                title: 'Aset berhasil diperbarui!'
-            })
-        }
-
-
-        function toastDelete() {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 5000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: 'success',
-                title: 'Aset berhasil dihapus!'
+                title: 'Kelas berhasil diperbarui!'
             })
         }
 
