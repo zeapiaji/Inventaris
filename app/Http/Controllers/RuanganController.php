@@ -56,23 +56,6 @@ class RuanganController extends Controller
     }
 
 
-    public function konfig_Ruangan()
-    {
-        return view('ruangan.konfig.index');
-    }
-
-
-    public function data_konfig()
-    {
-        $ruangan = Ruangan::all();
-        $no      = 1;
-        return view('ruangan.konfig.data', compact(
-            'ruangan',
-            'no'
-        ));
-    }
-
-
     public function akomodasi($id, $id_brg)
     {
         $data = Akomodasi::find($id);
@@ -128,4 +111,28 @@ class RuanganController extends Controller
     }
 
 
+    public function konfig_Ruangan()
+    {
+        $ruangan = Ruangan::paginate(15);
+        $no      = 1;
+
+        return view('ruangan.konfig.index', compact(
+            'ruangan',
+            'no'
+        ));
+    }
+
+
+    public function tambah_ruangan()
+    {
+        return view('ruangan.konfig.tambah');
+    }
+
+
+    public function edit_ruangan($id)
+    {
+        $ruangan = Ruangan::find($id);
+
+        return view('ruangan.konfig.edit', compact('ruangan'));
+    }
 }

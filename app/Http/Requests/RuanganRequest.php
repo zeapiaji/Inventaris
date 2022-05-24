@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TambahKelasFormRequest extends FormRequest
+class RuanganRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,17 @@ class TambahKelasFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_kelas' => 'required'
+            'ruangan' => 'required|min:5|max:20|unique:ruangan,nama',
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return [
-            'nama_kelas.required' => 'Nama kelas dibutuhkan'
+            'ruangan.required' => 'nama ruangan barang diperlukan!',
+            'ruangan.unique' => 'nama sudah digunakan!',
+            'ruangan.min' => 'minimal 5 huruf diperlukan!',
+            'ruangan.max' => 'nama terlalu ruangan panjang!',
         ];
     }
 }

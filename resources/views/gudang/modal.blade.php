@@ -167,8 +167,8 @@
                     </fieldset>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success" id="update">Update</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success" id="update">Ubah</button>
                 </form>
             </div>
         </div>

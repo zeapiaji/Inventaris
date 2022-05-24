@@ -14,22 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\GudangController::class, 'dasbor'])->name('dasbor');
+Route::get('/', [\App\Http\Controllers\RuanganController::class, 'ruangan'])->name('ruangan');
 
 /*
 |--------------------------------------------------------------------------
 | Parrent Data
 |--------------------------------------------------------------------------
 */
-Route::get('/data-konfig', [\App\Http\Controllers\RuanganController::class, 'data_konfig'])->name('data.ruangan');
 Route::get('/konfig-ruangan', [\App\Http\Controllers\RuanganController::class, 'konfig_ruangan'])->name('konfig.ruangan');
 
 Route::get('/tambah-ruangan', [\App\Http\Controllers\RuanganController::class, 'tambah_ruangan'])->name('tambah.ruangan');
-Route::get('/unggah-ruangan', [\App\Http\Controllers\DBrequest::class, 'unggah_ruangan'])->name('unggah.ruangan');
+Route::post('/unggah-ruangan', [\App\Http\Controllers\DBrequest::class, 'unggah_ruangan'])->name('unggah.ruangan');
 
-Route::post('/perbarui-ruangan', [\App\Http\Controllers\DBrequest::class, 'perbarui_ruangan'])->name('perbarui.ruangan');
+Route::get('/edit-ruangan/{id}', [\App\Http\Controllers\RuanganController::class, 'edit_ruangan'])->name('edit.ruangan');
 
-Route::post('/hapus-ruangan', [\App\Http\Controllers\DBrequest::class, 'hapus_ruangan'])->name('hapus.ruangan');
+Route::post('/perbarui-ruangan/{id}', [\App\Http\Controllers\DBrequest::class, 'perbarui_ruangan'])->name('perbarui.ruangan');
+
+Route::get('/hapus-ruangan/{id}', [\App\Http\Controllers\DBrequest::class, 'hapus_ruangan'])->name('hapus.ruangan');
 
 /*
 |--------------------------------------------------------------------------

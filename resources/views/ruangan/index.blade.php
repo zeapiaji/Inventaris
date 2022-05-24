@@ -11,12 +11,11 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8 d-flex">
                 <div class="card flex-fill p-2">
                     <div class="card-header">
-                        <div class="d-flex stretch bd-highlight">
-                            <div class="me-auto p-2 bd-highlight"><input type="text" id="searchbar"
-                                    class="p-2 bd-highlight form-control align-baseline" placeholder="barang, total, status...">
+                        <div class="d-flex stretch">
+                            <div class="me-auto p-2"><input type="text" id="searchbar"
+                                class="p-2 form-control align-baseline" placeholder="barang, total, status...">
                             </div>
-                            <div class="p-2 bd-highlight"><a href="ambil/{{$identitas -> id}}"
-                                    class="btn rounded-sm btn-lg btn-info">Ambil dari gudang</a></div>
+                            <div class="p-2"><a href="ambil/{{$identitas -> id}}" class="btn rounded-sm btn-lg btn-info">Ambil dari gudang</a></div>
                         </div>
                     </div>
                     <div class="table-responsive">

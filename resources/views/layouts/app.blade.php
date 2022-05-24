@@ -20,7 +20,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js"></script>
-    <script>$(document).ready(minusIgnore() {this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null});</script>
+    <script>
+        $(document).ready(minusIgnore() {
+            this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null
+        });
+
+    </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -47,26 +52,21 @@
 
                 <ul class="sidebar-nav d-flex align-items-start flex-column" id="sidebar">
 
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link">
                             <div class="align-middle sidebar-brand">
                                 <div id="clock" class="text-light" onload="currentTime()"></div>
                             </div>
                         </a>
-                    </li>
-
-                    <li class="sidebar-header">Menu</li>
-
-                    <li class="sidebar-item {{ Route::currentRouteNamed( 'dasbor' ) ?  'active' : '' }}">
-                        <a class="sidebar-link" href="/">
-                            <i class="align-middle" data-feather="sliders"></i>
-                            <span class="align-middle">Dasbor</span>
-                        </a>
-                    </li>
+                    </li> --}}
 
                     <li class="sidebar-header">Aset</li>
 
-                    <li class="sidebar-item {{ Route::currentRouteNamed( 'ruangan' ) ?  'active' : '' }}">
+                    <li class="sidebar-item
+                                            {{ Route::currentRouteNamed( 'ruangan' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'konfig.ruangan' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'tambah.ruangan' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'edit.ruangan' ) ?  'active' : '' }}">
                         <a class="sidebar-link" href="/ruangan">
                             <i class="align-middle" data-feather="square"></i>
                             <span class="align-middle">Ruangan</span>
@@ -111,7 +111,7 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
-                <div class="navbar-collapse collapse">
+                {{-- <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
                         <li class="nav-item">
                             <div class=""></div>
@@ -190,7 +190,7 @@
 
 
                     </ul>
-                </div>
+                </div> --}}
             </nav>
 
             @yield('content')

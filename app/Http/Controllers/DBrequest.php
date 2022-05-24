@@ -11,6 +11,7 @@ use App\Http\Requests\RuanganFormRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\RuanganJumlahFormRequest;
+use App\Http\Requests\RuanganRequest;
 
 class DBrequest extends Controller
 {
@@ -249,7 +250,7 @@ class DBrequest extends Controller
     }
 
 
-    public function unggah_ruangan(Request $request)
+    public function unggah_ruangan(RuanganRequest $request)
     {
         try {
             Ruangan::create([
@@ -265,39 +266,37 @@ class DBrequest extends Controller
     }
 
 
-    public function hapus_ruangan(Request $request)
+    public function hapus_ruangan($id)
     {
         try {
-            if ($request->ajax()){
-                $id = $request -> id;
-                Ruangan::find($id) -> delete();
+            $ruangan = Ruangan::find($id);
+            $ruangan -> delete();
+            Alert::toast('Ruangan berhasil dihapus!', 'success');
 
-                return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
-            }
+            return redirect('/konfig-ruangan');
         } catch (\Throwable $th) {
-            Alert::toast('Aset gagal dihapus!', 'error');
+            Alert::toast('Kosongkan aset terlebih dahulu!', 'error');
             return redirect()->back();
         }
 
     }
 
 
-    public function perbarui_ruangan(Request $request)
+    public function perbarui_ruangan(RuanganRequest $request, $id)
     {
+        $request -> validated();
+
         try {
-            if ($request->ajax()){
-                $id = $request -> id;
-                $ruangan = Ruangan::find($id);
-                $ruangan -> nama = $request -> nama;
-                $ruangan -> update();
+            $ruangan = Ruangan::find($id);
+            $ruangan -> nama = $request -> ruangan;
+            $ruangan -> update();
 
-                return response()->json(['status' => true, 'message'=>'aset berhasil dihapus']);
-            }
+            Alert::toast('Kelas berhasil diubah!', 'success');
+            return redirect('/konfig-ruangan');
         } catch (\Throwable $th) {
-            Alert::toast('Aset gagal dihapus!', 'error');
-            return redirect()->back();
+            Alert::toast('Kelas gagal diubah!', 'error');
+            return redirect('/konfig-ruangan');
         }
-
     }
 
 

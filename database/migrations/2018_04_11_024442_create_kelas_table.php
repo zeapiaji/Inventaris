@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ruangan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('nama')->unique();
         });
     }
 

@@ -17,16 +17,15 @@
             <div class="card-header">
                 <div class="d-flex stretch bd-highlight">
                     <div class="me-auto p-2 bd-highlight"><h5 class="card-title mb-0">Ruangan</h5></div>
-                    <div class="p-2 bd-highlight"><a href="/konfig-ruangan" class="btn btn-info">Konfigurasi Ruangan</a></div>
-                    <div class="p-2 bd-highlight">
-                        <input type="text" id="searchbar" class="p-2 bd-highlight form-control align-baseline" placeholder="cari disini..">
+                    <div class="d-grip gap-2">
+                        <a href="/konfig-ruangan" class="btn btn-info">Konfigurasi Ruangan</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             @foreach ($data as $item)
-            <div class="col-xxl-3 col-xl-3 col-md-5 col-sm-3">
+            <div class="col-xxl-4 col-xl-4 col-md-6 col-sm-3">
                 <div class="btn btn-success card">
                     <a href="/ruangan/{{$item -> id}}" class="text-decoration-none">
                         <div class="card-body">

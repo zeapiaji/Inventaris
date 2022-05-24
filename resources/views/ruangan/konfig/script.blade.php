@@ -19,31 +19,13 @@
         showData();
 
 
-        $(document).on('click', '.edit', function (event) {
+        $(document).on('click', '.perbarui', function (event) {
             event.preventDefault();
             var id = $(this).data('id');
             var ruangan = $(this).data('ruangan');
             $('#editmodal').modal('show');
-            $('#ruangan').val(ruangan);
+            $('.ruangan').val(ruangan);
             $('#memid').val(id);
-        });
-
-
-        $('#editForm').on('submit', function (e) {
-            e.preventDefault();
-            var form = $(this).serialize();
-            var url = $(this).attr('action');
-            $.POS(url, form, function (data) {
-                $('#editmodal').modal('hide');
-                toastUpdate();
-                showData();
-            })
-            $.post("url", data,
-                function (data, textStatus, jqXHR) {
-
-                },
-                "dataType"
-            );
         });
 
 
@@ -61,12 +43,11 @@
                     var id = $(this).data('id');
                     $.post("{{ URL::to('hapus-ruangan') }}", {
                         id: id
-                    }, function () {
-                        toastDelete();
+                    },function () {
                         showData();
-                    })
+                    });
                 }
-            })
+            });
         });
 
 

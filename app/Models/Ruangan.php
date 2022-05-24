@@ -13,7 +13,7 @@ class Ruangan extends Model
     protected $fillable = [
         'nama'
     ];
-
+    public $timestamps = false;
     /**
      * Get all of the akomodasi_kelas for the Kelas
      *
