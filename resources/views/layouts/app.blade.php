@@ -24,7 +24,6 @@
         $(document).ready(minusIgnore() {
             this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null
         });
-
     </script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -66,7 +65,11 @@
                                             {{ Route::currentRouteNamed( 'ruangan' ) ?  'active' : '' }}
                                             {{ Route::currentRouteNamed( 'konfig.ruangan' ) ?  'active' : '' }}
                                             {{ Route::currentRouteNamed( 'tambah.ruangan' ) ?  'active' : '' }}
-                                            {{ Route::currentRouteNamed( 'edit.ruangan' ) ?  'active' : '' }}">
+                                            {{ Route::currentRouteNamed( 'edit.ruangan' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'detail' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'akomodasi' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'kembalikan' ) ?  'active' : '' }}
+                                            {{ Route::currentRouteNamed( 'ruangan.ambil' ) ?  'active' : '' }}">
                         <a class="sidebar-link" href="/ruangan">
                             <i class="align-middle" data-feather="square"></i>
                             <span class="align-middle">Ruangan</span>

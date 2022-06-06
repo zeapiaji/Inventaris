@@ -9,7 +9,6 @@
         <div class="flex-fill">
             <div class="d-flex">
                 <div class="me-auto"><h1 class="h3 mb-3">Aset <strong>Ruangan</strong> </h1></div>
-
             </div>
         </div>
 
@@ -35,8 +34,6 @@
                 </div>
             </div>
             @endforeach
-
-
         </div>
     </div>
 

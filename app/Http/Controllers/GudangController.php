@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gudang;
-use Illuminate\Support\Facades\Request;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 
 class GudangController extends Controller
 {
@@ -30,7 +31,7 @@ class GudangController extends Controller
     }
 
 
-    public function data(Request $request)
+    public function data()
     {
         $gudang = Gudang::all();
         $no = 1;

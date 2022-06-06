@@ -258,10 +258,10 @@ class DBrequest extends Controller
             ]);
 
             Alert::toast('Ruangan '. $request -> ruangan.' berhasil ditambahkan!', 'success');
-            return redirect('/ruangan');
+            return redirect('/konfig-ruangan');
         } catch (\Throwable $th) {
             Alert::toast('Ruangan '. $request -> ruangan.' gagal ditambahkan!', 'error');
-            return redirect('/ruangan');
+            return redirect('/konfig-ruangan');
         }
     }
 
@@ -269,11 +269,10 @@ class DBrequest extends Controller
     public function hapus_ruangan($id)
     {
         try {
-            $ruangan = Ruangan::find($id);
-            $ruangan -> delete();
+            Ruangan::find($id) -> delete();
             Alert::toast('Ruangan berhasil dihapus!', 'success');
 
-            return redirect('/konfig-ruangan');
+            return redirect()->back();
         } catch (\Throwable $th) {
             Alert::toast('Kosongkan aset terlebih dahulu!', 'error');
             return redirect()->back();

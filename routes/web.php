@@ -50,7 +50,7 @@ Route::delete('multiple-delete', [\App\Http\Controllers\DBrequest::class, 'multi
 |--------------------------------------------------------------------------
 */
 Route::get('/ruangan', [\App\Http\Controllers\RuanganController::class, 'ruangan'])->name('ruangan');
-Route::name('detail')->get('/ruangan/{id}', [\App\Http\Controllers\RuanganController::class, 'detail']);
+Route::get('/ruangan/{id}', [\App\Http\Controllers\RuanganController::class, 'detail'])->name('detail');
 Route::get('/ruangan/ambil/{id}', [\App\Http\Controllers\RuanganController::class, 'ambil'])->name('ruangan.ambil');
 Route::post('/ruangan/ambil-aset/{id}', [\App\Http\Controllers\DBrequest::class, 'ambil_aset'])->name('ambil_aset');
 Route::post('/aset/ruangan/detail/akomodasi/{id}/barang/{id_brg}', [\App\Http\Controllers\DBrequest::class, 'akomodasi_aset'])->name('akomodasi.aset');

@@ -14,7 +14,7 @@
                     </ul>
                 </div>
 
-                <form action="{{ URL::to('unggah') }}" id="addForm">
+                <form action="{{ url('unggah') }}" id="addForm">
                     <div class="row mb-3">
                         <label for="nama-barang" class="col-sm-2 col-form-label">Nama Barang</label>
                         <div class="col-sm-10">
@@ -26,7 +26,7 @@
                         <label for="jumlah" class="col-sm-2 col-form-label">Jumlah</label>
                         <div class="col-sm-10">
                             <input type="number" name="jumlah" class="form-control" id="jumlah" min="0"
-                                oninput="minusIgnore()" required>
+                                required>
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@
                         <div class="col-sm-10">
                             <input type="number" name="jumlah"
                                 class="form-control @error('jumlah') is-invalid @enderror" id="total"
-                                value="{{ old('jumlah') }}" min="0" oninput="minusIgnore()">
+                                value="{{ old('jumlah') }}" min="0">
                             @error('jumlah')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror

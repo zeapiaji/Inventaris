@@ -6,7 +6,10 @@
 <main class="content">
     <div class="container-fluid p-0">
 
-        <h1 class="h3 mb-3">Ambil Aset dari <strong>Gudang</strong></h1>
+        <div class="d-flex">
+            <div class="me-auto"><h1 class="h3 mb-3">Ambil Aset dari <strong>Gudang</strong></h1></div>
+            <a href="/ruangan/{{$data ->id}}" class="fs-5">Kembali</a>
+        </div>
 
         <div class="row">
             <div class="col-xl-8 col-xxl-8 col-sm-12 col-md-12 col-lg-12 d-flex">

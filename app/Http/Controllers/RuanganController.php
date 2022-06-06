@@ -102,7 +102,7 @@ class RuanganController extends Controller
     {
         $data   = Ruangan::find($id);
         $gudang = Gudang::where('total', '>', 0)
-                    ->where('status_id','<','4')
+                    ->where('status_id', '<', '4')
                     ->get();
         return view('Ruangan.ambil', compact(
             'data',
@@ -111,7 +111,7 @@ class RuanganController extends Controller
     }
 
 
-    public function konfig_Ruangan()
+    public function konfig_ruangan()
     {
         $ruangan = Ruangan::paginate(15);
         $no      = 1;
